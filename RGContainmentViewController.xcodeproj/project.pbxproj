@@ -18,6 +18,8 @@
 		9D00C2E1174CE7E0000117B1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D00C2E0174CE7E0000117B1 /* Default-568h@2x.png */; };
 		9D00C2E4174CE7E0000117B1 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D00C2E2174CE7E0000117B1 /* MainStoryboard.storyboard */; };
 		9D00C2E7174CE7E0000117B1 /* RGContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D00C2E6174CE7E0000117B1 /* RGContainerViewController.m */; };
+		9DCC911D174E898E00C5962B /* RGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC911C174E898E00C5962B /* RGMapViewController.m */; };
+		9DCC911F174EAD4C00C5962B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DCC911E174EAD4C00C5962B /* MapKit.framework */; };
 		DA95B3552BCB479E9E8ABC80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD65D848735844A8978766E2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +41,9 @@
 		9D00C2E3174CE7E0000117B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		9D00C2E5174CE7E0000117B1 /* RGContainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RGContainerViewController.h; sourceTree = "<group>"; };
 		9D00C2E6174CE7E0000117B1 /* RGContainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RGContainerViewController.m; sourceTree = "<group>"; };
+		9DCC911B174E898E00C5962B /* RGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMapViewController.h; sourceTree = "<group>"; };
+		9DCC911C174E898E00C5962B /* RGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMapViewController.m; sourceTree = "<group>"; };
+		9DCC911E174EAD4C00C5962B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CD65D848735844A8978766E2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -47,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DCC911F174EAD4C00C5962B /* MapKit.framework in Frameworks */,
 				9D00C2CB174CE7E0000117B1 /* UIKit.framework in Frameworks */,
 				9D00C2CD174CE7E0000117B1 /* Foundation.framework in Frameworks */,
 				9D00C2CF174CE7E0000117B1 /* CoreGraphics.framework in Frameworks */,
@@ -60,6 +66,7 @@
 		9D00C2BE174CE7E0000117B1 = {
 			isa = PBXGroup;
 			children = (
+				9DCC911E174EAD4C00C5962B /* MapKit.framework */,
 				9D00C2D0174CE7E0000117B1 /* RGContainmentViewController */,
 				9D00C2C9174CE7E0000117B1 /* Frameworks */,
 				9D00C2C8174CE7E0000117B1 /* Products */,
@@ -95,6 +102,8 @@
 				9D00C2E5174CE7E0000117B1 /* RGContainerViewController.h */,
 				9D00C2E6174CE7E0000117B1 /* RGContainerViewController.m */,
 				9D00C2D1174CE7E0000117B1 /* Supporting Files */,
+				9DCC911B174E898E00C5962B /* RGMapViewController.h */,
+				9DCC911C174E898E00C5962B /* RGMapViewController.m */,
 			);
 			path = RGContainmentViewController;
 			sourceTree = "<group>";
@@ -216,6 +225,7 @@
 				9D00C2D7174CE7E0000117B1 /* main.m in Sources */,
 				9D00C2DB174CE7E0000117B1 /* RGAppDelegate.m in Sources */,
 				9D00C2E7174CE7E0000117B1 /* RGContainerViewController.m in Sources */,
+				9DCC911D174E898E00C5962B /* RGMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

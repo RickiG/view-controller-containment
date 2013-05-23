@@ -7,8 +7,11 @@
 //
 
 #import "RGContainerViewController.h"
+#import "RGMapViewController.h"
 
 @interface RGContainerViewController ()
+
+@property RGMapViewController *targetMapViewController;
 
 @end
 
@@ -17,7 +20,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    _targetMapViewController = [RGMapViewController new];
+    [self addChildViewController:_targetMapViewController];
+    [self.view addSubview:_targetMapViewController.view];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
