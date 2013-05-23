@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Ricki Gregersen. All rights reserved.
 //
 
-#import "RGViewController.h"
+#import "RGContainerViewController.h"
 
-@interface RGViewController ()
+@interface RGContainerViewController ()
 
 @end
 
-@implementation RGViewController
+@implementation RGContainerViewController
 
 - (void)viewDidLoad
 {

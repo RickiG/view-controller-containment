@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RGViewController : UIViewController
+@interface RGContainerViewController : UIViewController
 
 @end
