@@ -25,8 +25,12 @@
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9n-Be-8Kd">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="Hbe-cO-0At"/>
+                                    <constraint firstAttribute="height" constant="54" id="aoL-HX-ayS"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" backgroundImage="radar@2x.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -41,15 +45,15 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Kql-PT-X7U" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="1a9-09-wcP"/>
-                            <constraint firstItem="E9n-Be-8Kd" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="126" id="59j-ZS-FVa"/>
+                            <constraint firstItem="E9n-Be-8Kd" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" type="default" id="2Sq-Zy-L2Q"/>
                             <constraint firstItem="Kql-PT-X7U" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="6ws-QH-qzK"/>
                             <constraint firstItem="Hut-Z8-44E" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="BRf-vM-LiF"/>
-                            <constraint firstAttribute="trailing" secondItem="Hut-Z8-44E" secondAttribute="trailing" constant="-7" id="VA4-U6-zFj"/>
+                            <constraint firstItem="E9n-Be-8Kd" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="136" id="J74-fd-EED"/>
                             <constraint firstAttribute="bottom" secondItem="Kql-PT-X7U" secondAttribute="bottom" constant="318" id="crc-5N-8xQ"/>
-                            <constraint firstItem="E9n-Be-8Kd" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" type="default" id="dkh-Za-Afu"/>
                             <constraint firstItem="Hut-Z8-44E" firstAttribute="top" secondItem="3" secondAttribute="top" constant="318" id="gAC-Nl-jeH"/>
                             <constraint firstItem="Kql-PT-X7U" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="m7L-mg-7Tc"/>
                             <constraint firstItem="Hut-Z8-44E" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="mLu-w2-pEm"/>
+                            <constraint firstItem="E9n-Be-8Kd" firstAttribute="centerX" secondItem="Hut-Z8-44E" secondAttribute="centerX" type="default" id="wN8-fY-BUM"/>
                         </constraints>
                     </view>
                     <connections>
@@ -106,26 +110,9 @@
             <point key="canvasLocation" x="747" y="663"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="RGContainerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RGContainerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="infoButtonHandler:"/>
-                <relationship kind="outlet" name="infoButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="locationMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="targetMapView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="RGMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RGMapViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-    </classes>
+    <resources>
+        <image name="radar@2x.png" width="54" height="54"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

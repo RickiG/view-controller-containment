@@ -47,14 +47,16 @@
     
     _targetMapView.layer.cornerRadius = 10.0f;
     _locationMapView.layer.cornerRadius = 10.0f;
+    
+    [_infoButton setBackgroundImage:[UIImage imageNamed:@"radar_enabled.png"] forState:UIControlStateSelected];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     targetViewOrigin = _targetMapView.frame.origin;
     locationViewOrigin = _locationMapView.frame.origin;
-
 }
 
 - (void) slideOut
@@ -92,8 +94,10 @@
 {
     if (CGPointEqualToPoint(_targetMapView.frame.origin, targetViewOrigin) && CGPointEqualToPoint(_locationMapView.frame.origin, locationViewOrigin)) {
         [self slideOut];
+        _infoButton.selected = YES;
     } else {
         [self slideIn];
+        _infoButton.selected = NO;
     }
 }
 
