@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 @interface RGMapStateModel : NSObject
+
+//@property BOOL showUserLocation;
+@property CLLocation *location;
+@property UIImage *annotationImage;
 
 @end
