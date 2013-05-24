@@ -84,7 +84,8 @@
 {
     if (!_locationManager) {
         _locationManager = [CLLocationManager new];
-        _locationManager.desiredAccuracy = 10.0f;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        _locationManager.distanceFilter = 10.0f;
         _locationManager.delegate = self;
     }
     
@@ -98,13 +99,8 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          
-                         CGPoint mapOrigin = _targetMapView.frame.origin;
-                         mapOrigin.y -= CGRectGetHeight(_targetMapView.frame) - 30.0f;
-                         _targetMapView.frameOrigin = mapOrigin;
-                         
-                         mapOrigin = _locationMapView.frame.origin;
-                         mapOrigin.y += CGRectGetHeight(_locationMapView.frame) -30.0f;
-                         _locationMapView.frameOrigin = mapOrigin;
+                         _targetMapView.frameOrigin = targetViewOrigin;
+                         _locationMapView.frameOrigin = locationViewOrigin;
                          
                      } completion:nil];
 }
@@ -124,13 +120,35 @@
 
 - (IBAction)infoButtonHandler:(id)sender
 {
+    CGPoint locationOrigin = CGPointZero;
+    CGPoint targetOrigin = CGPointZero;
+    
     if (CGPointEqualToPoint(_targetMapView.frame.origin, targetViewOrigin) && CGPointEqualToPoint(_locationMapView.frame.origin, locationViewOrigin)) {
-        [self slideOut];
+
+        targetOrigin = _targetMapView.frame.origin;
+        targetOrigin.y -= CGRectGetHeight(_targetMapView.frame) - 30.0f;
+        
+        locationOrigin = _locationMapView.frame.origin;
+        locationOrigin.y += CGRectGetHeight(_locationMapView.frame) - 30.0f;
         _infoButton.selected = YES;
+        
     } else {
-        [self slideIn];
+
+        targetOrigin = targetViewOrigin;
+        locationOrigin = locationViewOrigin;
+        
         _infoButton.selected = NO;
     }
+    
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         
+                         _targetMapView.frameOrigin = targetOrigin;
+                         _locationMapView.frameOrigin = locationOrigin;
+                         
+                     } completion:nil];
 }
 
 #pragma mark - Corelocation Delegate
@@ -138,25 +156,25 @@
 - (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *location = [locations objectAtIndex:0];
+    
+    RGMapStateModel *mapModel = [RGMapStateModel new];
+    mapModel.location = location;
+    
+    [_locationMapViewController updateWithMapModel:mapModel];
+    
+    /*
+     ask locationMapController to display user pos
+     calculate antipode
+     ask targetLMapController to display antipode
+     ask for placemark close by - assign to labels
+     */
+    
     NSLog(@"%@", location.description);
 }
-
-- (void) locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
-{}
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
 	NSLog(@"didFailWithError: %@", error);
-}
-
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
-{
-    NSLog(@"%@", [NSString stringWithFormat:@"didEnterRegion %@ at %@", region.identifier, [NSDate date]]);
-}
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-    NSLog(@"%@", [NSString stringWithFormat:@"didExitRegion %@ at %@", region.identifier, [NSDate date]]);
 }
 
 - (void)didReceiveMemoryWarning
