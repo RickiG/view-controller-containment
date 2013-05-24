@@ -21,6 +21,7 @@
 		9DCC911D174E898E00C5962B /* RGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC911C174E898E00C5962B /* RGMapViewController.m */; };
 		9DCC911F174EAD4C00C5962B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DCC911E174EAD4C00C5962B /* MapKit.framework */; };
 		9DCC9122174EBCF300C5962B /* UIView+position.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC9121174EBCF300C5962B /* UIView+position.m */; };
+		9DCC9125174F5E7300C5962B /* RGMapStateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC9124174F5E7300C5962B /* RGMapStateModel.m */; };
 		DA95B3552BCB479E9E8ABC80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD65D848735844A8978766E2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,8 @@
 		9DCC911E174EAD4C00C5962B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9DCC9120174EBCF300C5962B /* UIView+position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+position.h"; sourceTree = "<group>"; };
 		9DCC9121174EBCF300C5962B /* UIView+position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+position.m"; sourceTree = "<group>"; };
+		9DCC9123174F5E7300C5962B /* RGMapStateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMapStateModel.h; sourceTree = "<group>"; };
+		9DCC9124174F5E7300C5962B /* RGMapStateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMapStateModel.m; sourceTree = "<group>"; };
 		CD65D848735844A8978766E2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -109,6 +112,8 @@
 				9D00C2D1174CE7E0000117B1 /* Supporting Files */,
 				9DCC911B174E898E00C5962B /* RGMapViewController.h */,
 				9DCC911C174E898E00C5962B /* RGMapViewController.m */,
+				9DCC9123174F5E7300C5962B /* RGMapStateModel.h */,
+				9DCC9124174F5E7300C5962B /* RGMapStateModel.m */,
 			);
 			path = RGContainmentViewController;
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 				9D00C2E7174CE7E0000117B1 /* RGContainerViewController.m in Sources */,
 				9DCC911D174E898E00C5962B /* RGMapViewController.m in Sources */,
 				9DCC9122174EBCF300C5962B /* UIView+position.m in Sources */,
+				9DCC9125174F5E7300C5962B /* RGMapStateModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
