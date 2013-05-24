@@ -72,10 +72,10 @@
                             <constraint firstItem="p9N-7p-TmY" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="XoN-I7-2oW"/>
                             <constraint firstAttribute="trailing" secondItem="p9N-7p-TmY" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Y0d-is-hEW"/>
                             <constraint firstItem="p9N-7p-TmY" firstAttribute="centerY" secondItem="Hut-Z8-44E" secondAttribute="centerY" type="default" id="asV-wG-lbd"/>
+                            <constraint firstItem="Hut-Z8-44E" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="c3j-9F-TjI"/>
                             <constraint firstItem="Kql-PT-X7U" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="m7L-mg-7Tc"/>
                             <constraint firstItem="Hut-Z8-44E" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="mLu-w2-pEm"/>
                             <constraint firstItem="E9n-Be-8Kd" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" type="default" id="p1P-0i-3Ma"/>
-                            <constraint firstItem="E9n-Be-8Kd" firstAttribute="centerX" secondItem="Hut-Z8-44E" secondAttribute="centerX" type="default" id="wN8-fY-BUM"/>
                         </constraints>
                     </view>
                     <connections>
@@ -98,36 +98,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </mapView>
                     <toolbarItems/>
-                    <connections>
-                        <outlet property="mapView" destination="Ohr-Uv-1Qp" id="TOR-UW-eF5"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYg-p5-6Je" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="325"/>
+            <point key="canvasLocation" x="747" y="325"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="dhP-xt-Gd7">
             <objects>
                 <viewController storyboardIdentifier="map_controller_location" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jwe-1t-Q8t" customClass="RGMapViewController" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="blD-uj-O49">
-                        <rect key="frame" x="0.0" y="0.0" width="327" height="230"/>
+                    <mapView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="BDE-DK-Zrr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="BDE-DK-Zrr"/>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="BDE-DK-Zrr" firstAttribute="leading" secondItem="blD-uj-O49" secondAttribute="leading" type="default" id="BfY-QU-q4s"/>
-                            <constraint firstItem="BDE-DK-Zrr" firstAttribute="trailing" secondItem="blD-uj-O49" secondAttribute="trailing" type="default" id="VBp-M7-Xq8"/>
-                            <constraint firstItem="BDE-DK-Zrr" firstAttribute="bottom" secondItem="blD-uj-O49" secondAttribute="bottom" type="default" id="fyR-zK-LJZ"/>
-                            <constraint firstItem="BDE-DK-Zrr" firstAttribute="top" secondItem="blD-uj-O49" secondAttribute="top" type="default" id="w8P-Zg-HXH"/>
-                        </constraints>
-                    </view>
+                    </mapView>
                     <toolbarItems/>
-                    <connections>
-                        <outlet property="mapView" destination="BDE-DK-Zrr" id="8ud-0p-3zY"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R4z-cY-yXC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -154,9 +138,6 @@
         </class>
         <class className="RGMapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RGMapViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
