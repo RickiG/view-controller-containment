@@ -11,7 +11,6 @@
 
 @interface RGMapStateModel : NSObject
 
-//@property BOOL showUserLocation;
 @property CLLocation *location;
 @property UIImage *annotationImage;
 
