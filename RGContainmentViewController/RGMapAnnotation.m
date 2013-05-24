@@ -10,4 +10,9 @@
 
 @implementation RGMapAnnotation
 
+- (void) updateCoordinate:(CLLocationCoordinate2D) newCoordinate
+{
+    _coordinate = newCoordinate;
+}
+
 @end

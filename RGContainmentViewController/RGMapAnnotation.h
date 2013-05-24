@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
-@interface RGMapAnnotation : NSObject
+@interface RGMapAnnotation : NSObject<MKAnnotation>
+
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+
+- (void) updateCoordinate:(CLLocationCoordinate2D) newCoordinate;
 
 @end
