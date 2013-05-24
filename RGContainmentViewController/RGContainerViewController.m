@@ -19,6 +19,10 @@
 @property (weak, nonatomic) IBOutlet UIView *targetMapView;
 @property (weak, nonatomic) IBOutlet UIView *locationMapView;
 
+@property (weak, nonatomic) IBOutlet UILabel *targetLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+
+
 @property RGMapViewController *targetMapViewController;
 @property RGMapViewController *locationMapViewController;
 
@@ -49,6 +53,9 @@
     _locationMapView.layer.cornerRadius = 10.0f;
     
     [_infoButton setBackgroundImage:[UIImage imageNamed:@"radar_enabled.png"] forState:UIControlStateSelected];
+    
+    _targetLabel.text = @"Target";
+    _locationLabel.text = @"Location";
 }
 
 - (void)viewDidAppear:(BOOL)animated

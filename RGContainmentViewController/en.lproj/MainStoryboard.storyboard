@@ -12,6 +12,22 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="Hkp-h9-FYo">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="62M-d2-abM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="p9N-7p-TmY">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="TNS-K4-Uzg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <containerView clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kql-PT-X7U">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -45,20 +61,28 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Kql-PT-X7U" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="1a9-09-wcP"/>
-                            <constraint firstItem="E9n-Be-8Kd" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" type="default" id="2Sq-Zy-L2Q"/>
+                            <constraint firstAttribute="trailing" secondItem="Hkp-h9-FYo" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="6MN-Q2-RkW"/>
                             <constraint firstItem="Kql-PT-X7U" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="6ws-QH-qzK"/>
+                            <constraint firstItem="Hkp-h9-FYo" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="8el-mZ-7I5"/>
                             <constraint firstItem="Hut-Z8-44E" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="BRf-vM-LiF"/>
                             <constraint firstItem="E9n-Be-8Kd" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="136" id="J74-fd-EED"/>
-                            <constraint firstAttribute="bottom" secondItem="Kql-PT-X7U" secondAttribute="bottom" constant="318" id="crc-5N-8xQ"/>
-                            <constraint firstItem="Hut-Z8-44E" firstAttribute="top" secondItem="3" secondAttribute="top" constant="318" id="gAC-Nl-jeH"/>
+                            <constraint firstItem="Kql-PT-X7U" firstAttribute="centerY" secondItem="Hkp-h9-FYo" secondAttribute="centerY" type="default" id="Luc-Ca-USW"/>
+                            <constraint firstItem="Hkp-h9-FYo" firstAttribute="top" secondItem="3" secondAttribute="top" constant="20" symbolic="YES" type="default" id="Sgu-KH-gwe"/>
+                            <constraint firstAttribute="bottom" secondItem="p9N-7p-TmY" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="TUr-Ox-zkd"/>
+                            <constraint firstItem="p9N-7p-TmY" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="XoN-I7-2oW"/>
+                            <constraint firstAttribute="trailing" secondItem="p9N-7p-TmY" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Y0d-is-hEW"/>
+                            <constraint firstItem="p9N-7p-TmY" firstAttribute="centerY" secondItem="Hut-Z8-44E" secondAttribute="centerY" type="default" id="asV-wG-lbd"/>
                             <constraint firstItem="Kql-PT-X7U" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="m7L-mg-7Tc"/>
                             <constraint firstItem="Hut-Z8-44E" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="mLu-w2-pEm"/>
+                            <constraint firstItem="E9n-Be-8Kd" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" type="default" id="p1P-0i-3Ma"/>
                             <constraint firstItem="E9n-Be-8Kd" firstAttribute="centerX" secondItem="Hut-Z8-44E" secondAttribute="centerX" type="default" id="wN8-fY-BUM"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="infoButton" destination="E9n-Be-8Kd" id="m1c-mb-MTW"/>
+                        <outlet property="locationLabel" destination="p9N-7p-TmY" id="4KC-4k-Tnn"/>
                         <outlet property="locationMapView" destination="Hut-Z8-44E" id="sgV-N0-BCh"/>
+                        <outlet property="targetLabel" destination="Hkp-h9-FYo" id="CeQ-KI-Ytg"/>
                         <outlet property="targetMapView" destination="Kql-PT-X7U" id="5ZJ-73-VR1"/>
                     </connections>
                 </viewController>
@@ -113,6 +137,28 @@
     <resources>
         <image name="radar@2x.png" width="54" height="54"/>
     </resources>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="RGContainerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RGContainerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="infoButtonHandler:"/>
+                <relationship kind="outlet" name="infoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locationMapView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="targetLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="targetMapView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="RGMapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RGMapViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
