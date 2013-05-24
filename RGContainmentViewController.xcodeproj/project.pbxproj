@@ -24,6 +24,8 @@
 		9DCC9125174F5E7300C5962B /* RGMapStateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC9124174F5E7300C5962B /* RGMapStateModel.m */; };
 		9DCC912B174F68C500C5962B /* radar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DCC912A174F68C500C5962B /* radar@2x.png */; };
 		9DCC912F174F6AC100C5962B /* radar_enabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DCC912E174F6AC100C5962B /* radar_enabled@2x.png */; };
+		9DCC9134174F8D7000C5962B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DCC9133174F8D7000C5962B /* CoreLocation.framework */; };
+		9DCC9137174FA00100C5962B /* RGMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC9136174FA00100C5962B /* RGMapAnnotation.m */; };
 		DA95B3552BCB479E9E8ABC80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD65D848735844A8978766E2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +56,9 @@
 		9DCC9124174F5E7300C5962B /* RGMapStateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMapStateModel.m; sourceTree = "<group>"; };
 		9DCC912A174F68C500C5962B /* radar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "radar@2x.png"; sourceTree = "<group>"; };
 		9DCC912E174F6AC100C5962B /* radar_enabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "radar_enabled@2x.png"; sourceTree = "<group>"; };
+		9DCC9133174F8D7000C5962B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9DCC9135174FA00100C5962B /* RGMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMapAnnotation.h; sourceTree = "<group>"; };
+		9DCC9136174FA00100C5962B /* RGMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMapAnnotation.m; sourceTree = "<group>"; };
 		CD65D848735844A8978766E2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -62,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DCC9134174F8D7000C5962B /* CoreLocation.framework in Frameworks */,
 				9DCC911F174EAD4C00C5962B /* MapKit.framework in Frameworks */,
 				9D00C2CB174CE7E0000117B1 /* UIKit.framework in Frameworks */,
 				9D00C2CD174CE7E0000117B1 /* Foundation.framework in Frameworks */,
@@ -76,6 +82,7 @@
 		9D00C2BE174CE7E0000117B1 = {
 			isa = PBXGroup;
 			children = (
+				9DCC9133174F8D7000C5962B /* CoreLocation.framework */,
 				9DCC911E174EAD4C00C5962B /* MapKit.framework */,
 				9D00C2D0174CE7E0000117B1 /* RGContainmentViewController */,
 				9D00C2C9174CE7E0000117B1 /* Frameworks */,
@@ -118,6 +125,8 @@
 				9D00C2D1174CE7E0000117B1 /* Supporting Files */,
 				9DCC911B174E898E00C5962B /* RGMapViewController.h */,
 				9DCC911C174E898E00C5962B /* RGMapViewController.m */,
+				9DCC9135174FA00100C5962B /* RGMapAnnotation.h */,
+				9DCC9136174FA00100C5962B /* RGMapAnnotation.m */,
 				9DCC9123174F5E7300C5962B /* RGMapStateModel.h */,
 				9DCC9124174F5E7300C5962B /* RGMapStateModel.m */,
 			);
@@ -246,6 +255,7 @@
 				9DCC911D174E898E00C5962B /* RGMapViewController.m in Sources */,
 				9DCC9122174EBCF300C5962B /* UIView+position.m in Sources */,
 				9DCC9125174F5E7300C5962B /* RGMapStateModel.m in Sources */,
+				9DCC9137174FA00100C5962B /* RGMapAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
