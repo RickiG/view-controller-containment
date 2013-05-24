@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RGMapStateModel.h"
 
 @interface RGMapViewController : UIViewController
+
+- (void) updateWithMapModel:(RGMapStateModel*) model;
 
 @end

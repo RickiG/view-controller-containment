@@ -7,10 +7,14 @@
 //
 
 #import "RGMapViewController.h"
+#import "RGMapAnnotation.h"
 #import <MapKit/MapKit.h>
 
-@interface RGMapViewController ()<MKMapViewDelegate>
-@property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@interface RGMapViewController ()<MKMapViewDelegate> {
+    
+    RGMapStateModel *mapModel;
+}
+//@property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
 
 @end
@@ -28,6 +32,20 @@
     [super viewDidAppear:animated];
     NSLog(@"%@", NSStringFromCGRect(self.view.frame));
 }
+
+- (void) updateWithMapModel:(RGMapStateModel*) model
+{
+    mapModel = model;
+    RGMapAnnotation *annotation = [RGMapAnnotation new];
+    [annotation updateCoordinate:model.location.coordinate];
+    
+    MKMapView *map = (MKMapView*)self.view;
+    [map removeAnnotations:map.annotations];
+    
+    [map addAnnotation:annotation];
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {
