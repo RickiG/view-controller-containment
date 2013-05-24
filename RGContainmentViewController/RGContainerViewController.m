@@ -8,9 +8,10 @@
 
 #import "RGContainerViewController.h"
 #import "RGMapViewController.h"
+#import <CoreLocation/CoreLocation.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface RGContainerViewController () {
+@interface RGContainerViewController ()<CLLocationManagerDelegate> {
     
     CGPoint targetViewOrigin;
     CGPoint locationViewOrigin;
@@ -22,9 +23,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *targetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
+//to remove these implement a mapViewProtocol and use that as a reference instead
 @property RGMapViewController *targetMapViewController;
 @property RGMapViewController *locationMapViewController;
+
+//Idea move calculation of antipode to class method in mapStateModel
 
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
 
@@ -64,6 +69,26 @@
     
     targetViewOrigin = _targetMapView.frame.origin;
     locationViewOrigin = _locationMapView.frame.origin;
+    
+    [self.locationManager startUpdatingLocation];
+
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self.locationManager stopUpdatingLocation];
+    _locationManager = nil;
+}
+
+- (CLLocationManager*) locationManager
+{
+    if (!_locationManager) {
+        _locationManager = [CLLocationManager new];
+        _locationManager.desiredAccuracy = 10.0f;
+        _locationManager.delegate = self;
+    }
+    
+    return _locationManager;
 }
 
 - (void) slideOut
@@ -108,6 +133,31 @@
     }
 }
 
+#pragma mark - Corelocation Delegate
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *location = [locations objectAtIndex:0];
+    NSLog(@"%@", location.description);
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+	NSLog(@"didFailWithError: %@", error);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
+{
+    NSLog(@"%@", [NSString stringWithFormat:@"didEnterRegion %@ at %@", region.identifier, [NSDate date]]);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
+{
+    NSLog(@"%@", [NSString stringWithFormat:@"didExitRegion %@ at %@", region.identifier, [NSDate date]]);
+}
 
 - (void)didReceiveMemoryWarning
 {
