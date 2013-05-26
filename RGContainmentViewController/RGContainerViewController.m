@@ -118,7 +118,7 @@
                      } completion:nil];
 }
 
-- (IBAction)infoButtonHandler:(id)sender
+- (void)animateMapViews:(id)sender
 {
     CGPoint locationOrigin = CGPointZero;
     CGPoint targetOrigin = CGPointZero;
@@ -151,16 +151,32 @@
                      } completion:nil];
 }
 
+- (IBAction)infoButtonUpHandler:(id)sender {
+    
+    [self animateMapViews:sender];
+}
+
+- (IBAction)infoButtonDownHandler:(id)sender {
+ 
+    [self animateMapViews:sender];
+}
+
+
+
 #pragma mark - Corelocation Delegate
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *location = [locations objectAtIndex:0];
     
-    RGMapStateModel *mapModel = [RGMapStateModel new];
-    mapModel.location = location;
     
-    [_locationMapViewController updateWithMapModel:mapModel];
+    RGMapStateModel *locationMapModel = [RGMapStateModel new];
+    locationMapModel.location = location;
+    locationMapModel.annotationImagePath = @"man.png";
+    
+    [_locationMapViewController updateWithMapModel:locationMapModel];
+    
+    [self reverseGeocodeLocation:location];
     
     /*
      ask locationMapController to display user pos
@@ -168,13 +184,41 @@
      ask targetLMapController to display antipode
      ask for placemark close by - assign to labels
      */
+
+    CLLocation *antipodeLocation = [RGMapStateModel antipodeFromLocation:location];
+    RGMapStateModel *targetMapModel = [RGMapStateModel new];
+    targetMapModel.location = antipodeLocation;
+    targetMapModel.annotationImagePath = @"sun.png";
     
-    NSLog(@"%@", location.description);
+    [_targetMapViewController updateWithMapModel:targetMapModel];
+    
+    [self reverseGeocodeLocation:antipodeLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
 	NSLog(@"didFailWithError: %@", error);
+}
+
+- (void) reverseGeocodeLocation:(CLLocation*) location
+{
+    [[[CLGeocoder alloc] init] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        
+        if (!error) {
+            for (CLPlacemark *p in placemarks) {
+                
+                NSLog(@"%@", p.description);
+                
+                //             p.country;                 //country
+                //             p.locality;                //city
+                //             p.name                     //placemark?
+                //             p.region                   //area?
+                //             p.subAdministrativeArea    //county
+                //             p.subLocality              //neighbourhood
+                //             p.thoroughfare             //street name
+            }
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning

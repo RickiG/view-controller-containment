@@ -54,7 +54,8 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="infoButtonHandler:" destination="2" eventType="touchUpInside" id="7MW-fp-J6k"/>
+                                    <action selector="infoButtonDownHandler:" destination="2" eventType="touchDown" id="Tgw-Xz-ehJ"/>
+                                    <action selector="infoButtonUpHandler:" destination="2" eventType="touchUpInside" id="MZn-1h-uFi"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -121,25 +122,6 @@
     <resources>
         <image name="radar@2x.png" width="54" height="54"/>
     </resources>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="RGContainerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RGContainerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="infoButtonHandler:"/>
-                <relationship kind="outlet" name="infoButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="locationMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="targetLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="targetMapView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="RGMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RGMapViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
