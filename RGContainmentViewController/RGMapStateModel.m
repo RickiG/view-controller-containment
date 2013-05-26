@@ -30,7 +30,7 @@
         newLongitude = location.coordinate.longitude + eastWestDirection;
         
         CLLocation *antipodeLocation = [[CLLocation alloc] initWithLatitude:newLatitude longitude:newLongitude];
-        NSLog(@"ANTIPODE CALC : %@", antipodeLocation.description);
+//        NSLog(@"ANTIPODE CALC : %@", antipodeLocation.description);
         
         return antipodeLocation;
     }
