@@ -92,32 +92,6 @@
     return _locationManager;
 }
 
-- (void) slideOut
-{
-    [UIView animateWithDuration:0.2f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         
-                         _targetMapView.frameOrigin = targetViewOrigin;
-                         _locationMapView.frameOrigin = locationViewOrigin;
-                         
-                     } completion:nil];
-}
-
-- (void) slideIn
-{
-    [UIView animateWithDuration:0.2f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         
-                         _targetMapView.frameOrigin = targetViewOrigin;
-                         _locationMapView.frameOrigin = locationViewOrigin;
-                         
-                     } completion:nil];
-}
-
 - (void)animateMapViews:(id)sender
 {
     CGPoint locationOrigin = CGPointZero;
@@ -161,14 +135,11 @@
     [self animateMapViews:sender];
 }
 
-
-
 #pragma mark - Corelocation Delegate
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *location = [locations objectAtIndex:0];
-    
     
     RGMapStateModel *locationMapModel = [RGMapStateModel new];
     locationMapModel.location = location;
@@ -176,7 +147,7 @@
     
     [_locationMapViewController updateWithMapModel:locationMapModel];
     
-    [self reverseGeocodeLocation:location];
+    [self updateLabel:_locationLabel withLocationInformation:location andBaseString:@"Start digging :\n"];
     
     /*
      ask locationMapController to display user pos
@@ -192,7 +163,7 @@
     
     [_targetMapViewController updateWithMapModel:targetMapModel];
     
-    [self reverseGeocodeLocation:antipodeLocation];
+    [self updateLabel:_targetLabel withLocationInformation:antipodeLocation andBaseString:@"End up at :\n"];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -200,14 +171,27 @@
 	NSLog(@"didFailWithError: %@", error);
 }
 
-- (void) reverseGeocodeLocation:(CLLocation*) location
+- (void) updateLabel:(UILabel*) label withLocationInformation:(CLLocation*) location andBaseString:(NSString*) string
 {
+    __block NSMutableString *placeStr = [[NSMutableString alloc] initWithString:string];
+    
     [[[CLGeocoder alloc] init] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         
         if (!error) {
             for (CLPlacemark *p in placemarks) {
                 
                 NSLog(@"%@", p.description);
+                
+                [label setText:[NSString stringWithFormat:@"%@", p.country]];
+                
+                if (p.name != NULL)
+                    [placeStr appendFormat:@"%@ ", p.name];
+                if (p.locality != NULL)
+                    [placeStr appendFormat:@"%@ ", p.locality];
+                if (p.country != NULL)
+                    [placeStr appendFormat:@"%@ ", p.country];
+                
+                [label setText:placeStr];
                 
                 //             p.country;                 //country
                 //             p.locality;                //city
