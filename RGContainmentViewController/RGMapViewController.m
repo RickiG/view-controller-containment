@@ -47,9 +47,8 @@
 
 - (void) snapToLocation:(CLLocation*) location
 {
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 10000000.0, 10000000.0);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 1000000.0, 1000000.0);
     [(MKMapView*)self.view setRegion:region animated:YES];
-    
 }
 
 #pragma mark - MKMapViewDelegate
