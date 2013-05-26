@@ -14,8 +14,6 @@
     
     RGMapStateModel *mapModel;
 }
-//@property (strong, nonatomic) IBOutlet MKMapView *mapView;
-
 
 @end
 
@@ -24,13 +22,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [(MKMapView*)self.view setDelegate:self];
 	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
 }
 
 - (void) updateWithMapModel:(RGMapStateModel*) model
@@ -43,9 +41,34 @@
     [map removeAnnotations:map.annotations];
     
     [map addAnnotation:annotation];
+    
+    [self snapToLocation:model.location];
 }
 
+- (void) snapToLocation:(CLLocation*) location
+{
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 10000000.0, 10000000.0);
+    [(MKMapView*)self.view setRegion:region animated:YES];
+    
+}
 
+#pragma mark - MKMapViewDelegate
+
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id)annotation{
+    
+    NSString *annotationIdentifier = mapModel.annotationImagePath;
+    
+    if([annotation isKindOfClass:[RGMapAnnotation class]]) {
+        
+        MKAnnotationView *annotationView=[(MKMapView*)self.view dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+        if(!annotationView){
+            annotationView=[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+            annotationView.image=[UIImage imageNamed:annotationIdentifier];
+        }
+        return annotationView;
+    }
+    return nil;
+}
 
 - (void)didReceiveMemoryWarning
 {
