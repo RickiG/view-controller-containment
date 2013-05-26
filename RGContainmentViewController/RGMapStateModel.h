@@ -12,6 +12,8 @@
 @interface RGMapStateModel : NSObject
 
 @property CLLocation *location;
-@property UIImage *annotationImage;
+@property NSString *annotationImagePath;
+
++ (CLLocation*) antipodeFromLocation:(CLLocation*) location;
 
 @end
