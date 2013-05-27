@@ -69,6 +69,13 @@
     return nil;
 }
 
+#pragma mark Helper method
+
+- (NSString*) identifier
+{
+    return self.restorationIdentifier;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

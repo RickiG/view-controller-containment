@@ -7,9 +7,8 @@
 //
 
 #import "RGContainerViewController.h"
-#import "RGMapViewController.h"
 #import "RGLocationManager.h"
-
+#import "RGMapControllerProtocol.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface RGContainerViewController ()<RGlocationProtocol> {
@@ -27,8 +26,8 @@
 @property (strong, nonatomic) RGLocationManager *locationManager;
 
 //to remove these implement a mapViewProtocol and use that as a reference instead
-@property RGMapViewController *targetMapViewController;
-@property RGMapViewController *locationMapViewController;
+@property id<RGMapControllerProtocol> targetMapViewController;
+@property id<RGMapControllerProtocol> locationMapViewController;
 
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
 
@@ -41,14 +40,15 @@
     [super viewDidLoad];
     
     NSLog(@"%@", self.childViewControllers.description);
-    for (RGMapViewController *mapVC in self.childViewControllers) {
-        NSString *restorationID = mapVC.restorationIdentifier;
+    
+    for (id<RGMapControllerProtocol>mapVC in self.childViewControllers) {
+        
+        NSString *restorationID = [mapVC identifier];
+        
         if ([restorationID isEqualToString:@"map_controller_target"]) {
-            
             _targetMapViewController = mapVC;
             
         } else if ([restorationID isEqualToString:@"map_controller_location"]) {
-            
             _locationMapViewController = mapVC;
         }
     }
@@ -74,6 +74,7 @@
 {
     [super viewDidAppear:animated];
     
+    //Capture the default position of the maps for later animation
     targetViewOrigin = _targetMapView.frame.origin;
     locationViewOrigin = _locationMapView.frame.origin;
     
