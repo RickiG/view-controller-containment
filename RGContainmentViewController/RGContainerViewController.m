@@ -54,13 +54,21 @@
         }
     }
     
-    _targetMapView.layer.cornerRadius = 10.0f;
-    _locationMapView.layer.cornerRadius = 10.0f;
+//    _targetMapView.layer.cornerRadius = 10.0f;
+//    _locationMapView.layer.cornerRadius = 10.0f;
     
-    [_infoButton setBackgroundImage:[UIImage imageNamed:@"radar_enabled.png"] forState:UIControlStateSelected];
+    _targetMapView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _targetMapView.layer.shadowRadius = 4.0f;
+    _targetMapView.layer.shadowOpacity = 0.5f;
+    _targetMapView.layer.shadowOffset = CGSizeMake(0.0f, -2.0f);
+    _targetMapView.clipsToBounds = NO;
     
-    _targetLabel.text = @"Target";
-    _locationLabel.text = @"Location";
+    _locationMapView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _locationMapView.layer.shadowRadius = 4.0f;
+    _locationMapView.layer.shadowOpacity = 0.5f;
+    _locationMapView.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
+    _locationMapView.clipsToBounds = NO;
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -144,22 +152,14 @@
     RGMapStateModel *locationMapModel = [RGMapStateModel new];
     locationMapModel.location = location;
     locationMapModel.annotationImagePath = @"man.png";
-    
     [_locationMapViewController updateWithMapModel:locationMapModel];
     
     [self updateLabel:_locationLabel withLocationInformation:location andBaseString:@"Start digging :\n"];
-    
-    /*
-     ask locationMapController to display user pos
-     calculate antipode
-     ask targetLMapController to display antipode
-     ask for placemark close by - assign to labels
-     */
 
     CLLocation *antipodeLocation = [RGMapStateModel antipodeFromLocation:location];
     RGMapStateModel *targetMapModel = [RGMapStateModel new];
     targetMapModel.location = antipodeLocation;
-    targetMapModel.annotationImagePath = @"sun.png";
+    targetMapModel.annotationImagePath = @"hole.png";
     
     [_targetMapViewController updateWithMapModel:targetMapModel];
     

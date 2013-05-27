@@ -94,7 +94,7 @@
         <scene sceneID="oDQ-Bu-PGZ">
             <objects>
                 <viewController storyboardIdentifier="map_controller_target" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wxJ-Jn-4h8" customClass="RGMapViewController" sceneMemberID="viewController">
-                    <mapView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" id="Ohr-Uv-1Qp">
+                    <mapView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" id="Ohr-Uv-1Qp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </mapView>
@@ -122,26 +122,6 @@
     <resources>
         <image name="radar@2x.png" width="54" height="54"/>
     </resources>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="RGContainerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RGContainerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="infoButtonDownHandler:"/>
-                <relationship kind="action" name="infoButtonUpHandler:"/>
-                <relationship kind="outlet" name="infoButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="locationMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="targetLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="targetMapView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="RGMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RGMapViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
