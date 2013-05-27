@@ -100,10 +100,10 @@
     if (CGPointEqualToPoint(_targetMapView.frame.origin, targetViewOrigin) && CGPointEqualToPoint(_locationMapView.frame.origin, locationViewOrigin)) {
 
         targetOrigin = _targetMapView.frame.origin;
-        targetOrigin.y -= CGRectGetHeight(_targetMapView.frame) - 30.0f;
+        targetOrigin.y += CGRectGetHeight(_targetMapView.frame) - 30.0f;
         
         locationOrigin = _locationMapView.frame.origin;
-        locationOrigin.y += CGRectGetHeight(_locationMapView.frame) - 30.0f;
+        locationOrigin.y -= CGRectGetHeight(_locationMapView.frame) - 30.0f;
         _infoButton.selected = YES;
         
     } else {
