@@ -7,7 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface RGLocationController : NSObject
+@protocol RGlocationProtocol <NSObject>
 
+- (void) locationController:(id) controller didUpDateLocation:(CLLocation*) location;
+- (void) locationController:(id) controller didFailWithError:(NSError*) error;
+
+@end
+
+@interface RGLocationManager : NSObject<CLLocationManagerDelegate>
+
+@property(nonatomic, weak) id<RGlocationProtocol> delegate;
+
+
+- (void) startUpdatingLocation;
+- (void) stopUpdatingLocation;
+                        
 @end

@@ -7,13 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+
+typedef void (^GeoCompletionHandler)(NSString *string);
 
 @interface RGMapStateModel : NSObject
 
 @property CLLocation *location;
 @property NSString *annotationImagePath;
+@property(nonatomic, copy) GeoCompletionHandler geoCompletionHandler;
 
 + (CLLocation*) antipodeFromLocation:(CLLocation*) location;
+- (void) reverseGeoCodeLocation:(CLLocation*) location withCompletionBlock:(GeoCompletionHandler) geoCompletionHandler;
 
 @end
