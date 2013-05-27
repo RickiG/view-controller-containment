@@ -20,6 +20,7 @@
 		9D00C2E7174CE7E0000117B1 /* RGContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D00C2E6174CE7E0000117B1 /* RGContainerViewController.m */; };
 		9DAB5C0C1753D22E0017CFDB /* man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB5C0A1753D22E0017CFDB /* man@2x.png */; };
 		9DAB5C0D1753D22E0017CFDB /* hole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB5C0B1753D22E0017CFDB /* hole@2x.png */; };
+		9DAB5C101753D3960017CFDB /* RGLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB5C0F1753D3960017CFDB /* RGLocationManager.m */; };
 		9DCC911D174E898E00C5962B /* RGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC911C174E898E00C5962B /* RGMapViewController.m */; };
 		9DCC911F174EAD4C00C5962B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DCC911E174EAD4C00C5962B /* MapKit.framework */; };
 		9DCC9122174EBCF300C5962B /* UIView+position.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC9121174EBCF300C5962B /* UIView+position.m */; };
@@ -28,11 +29,9 @@
 		9DCC912F174F6AC100C5962B /* radar_enabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DCC912E174F6AC100C5962B /* radar_enabled@2x.png */; };
 		9DCC9134174F8D7000C5962B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DCC9133174F8D7000C5962B /* CoreLocation.framework */; };
 		9DCC9137174FA00100C5962B /* RGMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC9136174FA00100C5962B /* RGMapAnnotation.m */; };
-		DA95B3552BCB479E9E8ABC80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD65D848735844A8978766E2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1D3332E9857A4639BEA074DC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		9D00C2C7174CE7E0000117B1 /* RGContainmentViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGContainmentViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D00C2CA174CE7E0000117B1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9D00C2CC174CE7E0000117B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -51,6 +50,8 @@
 		9D00C2E6174CE7E0000117B1 /* RGContainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RGContainerViewController.m; sourceTree = "<group>"; };
 		9DAB5C0A1753D22E0017CFDB /* man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "man@2x.png"; sourceTree = "<group>"; };
 		9DAB5C0B1753D22E0017CFDB /* hole@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hole@2x.png"; sourceTree = "<group>"; };
+		9DAB5C0E1753D3960017CFDB /* RGLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGLocationManager.h; sourceTree = "<group>"; };
+		9DAB5C0F1753D3960017CFDB /* RGLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGLocationManager.m; sourceTree = "<group>"; };
 		9DCC911B174E898E00C5962B /* RGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMapViewController.h; sourceTree = "<group>"; };
 		9DCC911C174E898E00C5962B /* RGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMapViewController.m; sourceTree = "<group>"; };
 		9DCC911E174EAD4C00C5962B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -63,7 +64,6 @@
 		9DCC9133174F8D7000C5962B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9DCC9135174FA00100C5962B /* RGMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMapAnnotation.h; sourceTree = "<group>"; };
 		9DCC9136174FA00100C5962B /* RGMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMapAnnotation.m; sourceTree = "<group>"; };
-		CD65D848735844A8978766E2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +76,6 @@
 				9D00C2CB174CE7E0000117B1 /* UIKit.framework in Frameworks */,
 				9D00C2CD174CE7E0000117B1 /* Foundation.framework in Frameworks */,
 				9D00C2CF174CE7E0000117B1 /* CoreGraphics.framework in Frameworks */,
-				DA95B3552BCB479E9E8ABC80 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +90,6 @@
 				9D00C2D0174CE7E0000117B1 /* RGContainmentViewController */,
 				9D00C2C9174CE7E0000117B1 /* Frameworks */,
 				9D00C2C8174CE7E0000117B1 /* Products */,
-				1D3332E9857A4639BEA074DC /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,7 +107,6 @@
 				9D00C2CA174CE7E0000117B1 /* UIKit.framework */,
 				9D00C2CC174CE7E0000117B1 /* Foundation.framework */,
 				9D00C2CE174CE7E0000117B1 /* CoreGraphics.framework */,
-				CD65D848735844A8978766E2 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -135,6 +132,8 @@
 				9DCC9136174FA00100C5962B /* RGMapAnnotation.m */,
 				9DCC9123174F5E7300C5962B /* RGMapStateModel.h */,
 				9DCC9124174F5E7300C5962B /* RGMapStateModel.m */,
+				9DAB5C0E1753D3960017CFDB /* RGLocationManager.h */,
+				9DAB5C0F1753D3960017CFDB /* RGLocationManager.m */,
 			);
 			path = RGContainmentViewController;
 			sourceTree = "<group>";
@@ -160,11 +159,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D00C2EA174CE7E0000117B1 /* Build configuration list for PBXNativeTarget "RGContainmentViewController" */;
 			buildPhases = (
-				DEA9756E4C3E4168A59B5D47 /* Check Pods Manifest.lock */,
 				9D00C2C3174CE7E0000117B1 /* Sources */,
 				9D00C2C4174CE7E0000117B1 /* Frameworks */,
 				9D00C2C5174CE7E0000117B1 /* Resources */,
-				6158A48B9C0441CF97244329 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -221,37 +218,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		6158A48B9C0441CF97244329 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-		};
-		DEA9756E4C3E4168A59B5D47 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		9D00C2C3174CE7E0000117B1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -264,6 +230,7 @@
 				9DCC9122174EBCF300C5962B /* UIView+position.m in Sources */,
 				9DCC9125174F5E7300C5962B /* RGMapStateModel.m in Sources */,
 				9DCC9137174FA00100C5962B /* RGMapAnnotation.m in Sources */,
+				9DAB5C101753D3960017CFDB /* RGLocationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,7 +314,6 @@
 		};
 		9D00C2EB174CE7E0000117B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D3332E9857A4639BEA074DC /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RGContainmentViewController/RGContainmentViewController-Prefix.pch";
@@ -359,7 +325,6 @@
 		};
 		9D00C2EC174CE7E0000117B1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D3332E9857A4639BEA074DC /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RGContainmentViewController/RGContainmentViewController-Prefix.pch";
