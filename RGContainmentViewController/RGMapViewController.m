@@ -87,7 +87,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     if (newState == MKAnnotationViewDragStateEnding)
     {
         CLLocationCoordinate2D droppedAt = annotationView.annotation.coordinate;
-        NSLog(@"Pin dropped at %f,%f", droppedAt.latitude, droppedAt.longitude);
         CLLocation *newLocation = [[CLLocation alloc] initWithCoordinate:droppedAt altitude:0.0f horizontalAccuracy:0.0f verticalAccuracy:0.0f timestamp:[NSDate date]];
         [self snapToLocation:newLocation];
         [self.delegate mapController:self didUpdateLocation:newLocation];
