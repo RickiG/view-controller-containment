@@ -19,9 +19,6 @@
     RGMapStateModel *locationMapModel, *targetMapModel;
 }
 
-//@property (weak, nonatomic) IBOutlet UIView *targetMapView;
-//@property (weak, nonatomic) IBOutlet UIView *locationMapView;
-
 @property (weak, nonatomic) IBOutlet UILabel *targetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 

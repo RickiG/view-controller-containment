@@ -31,6 +31,8 @@
     mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:mapView];
     
+    
+
     mapAnnotation = [RGMapAnnotation new];
     [mapView addAnnotation:mapAnnotation];
 }
