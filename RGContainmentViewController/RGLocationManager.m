@@ -48,7 +48,7 @@
 {
     CLLocation *location = [locations objectAtIndex:0];
     
-    [self.delegate locationController:self didUpDateLocation:location];
+    [self.delegate locationController:self didUpdateLocation:location];
     
 //
 //    [self updateLabel:_locationLabel withLocationInformation:location andBaseString:@"Start digging :\n"];

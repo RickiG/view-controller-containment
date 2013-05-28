@@ -11,7 +11,7 @@
 
 @protocol RGlocationProtocol <NSObject>
 
-- (void) locationController:(id) controller didUpDateLocation:(CLLocation*) location;
+- (void) locationController:(id) controller didUpdateLocation:(CLLocation*) location;
 - (void) locationController:(id) controller didFailWithError:(NSError*) error;
 
 @end

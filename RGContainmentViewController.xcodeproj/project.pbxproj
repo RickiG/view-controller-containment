@@ -21,6 +21,9 @@
 		9DAB5C101753D3960017CFDB /* RGLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB5C0F1753D3960017CFDB /* RGLocationManager.m */; };
 		9DAB5C141753F4200017CFDB /* hole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB5C131753F4200017CFDB /* hole@2x.png */; };
 		9DAB5C161753F51A0017CFDB /* man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB5C151753F51A0017CFDB /* man@2x.png */; };
+		9DAB5C26175412890017CFDB /* FLKAutoLayoutPredicateList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB5C21175412890017CFDB /* FLKAutoLayoutPredicateList.m */; };
+		9DAB5C27175412890017CFDB /* UIView+FLKAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB5C23175412890017CFDB /* UIView+FLKAutoLayout.m */; };
+		9DAB5C28175412890017CFDB /* UIView+FLKAutoLayoutPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB5C25175412890017CFDB /* UIView+FLKAutoLayoutPredicate.m */; };
 		9DCC911D174E898E00C5962B /* RGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC911C174E898E00C5962B /* RGMapViewController.m */; };
 		9DCC911F174EAD4C00C5962B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DCC911E174EAD4C00C5962B /* MapKit.framework */; };
 		9DCC9122174EBCF300C5962B /* UIView+position.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCC9121174EBCF300C5962B /* UIView+position.m */; };
@@ -52,7 +55,12 @@
 		9DAB5C0F1753D3960017CFDB /* RGLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGLocationManager.m; sourceTree = "<group>"; };
 		9DAB5C131753F4200017CFDB /* hole@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hole@2x.png"; sourceTree = "<group>"; };
 		9DAB5C151753F51A0017CFDB /* man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "man@2x.png"; sourceTree = "<group>"; };
-		9DAB5C191753F8050017CFDB /* RGMapControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMapControllerProtocol.h; sourceTree = "<group>"; };
+		9DAB5C20175412890017CFDB /* FLKAutoLayoutPredicateList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLKAutoLayoutPredicateList.h; sourceTree = "<group>"; };
+		9DAB5C21175412890017CFDB /* FLKAutoLayoutPredicateList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLKAutoLayoutPredicateList.m; sourceTree = "<group>"; };
+		9DAB5C22175412890017CFDB /* UIView+FLKAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FLKAutoLayout.h"; sourceTree = "<group>"; };
+		9DAB5C23175412890017CFDB /* UIView+FLKAutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FLKAutoLayout.m"; sourceTree = "<group>"; };
+		9DAB5C24175412890017CFDB /* UIView+FLKAutoLayoutPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FLKAutoLayoutPredicate.h"; sourceTree = "<group>"; };
+		9DAB5C25175412890017CFDB /* UIView+FLKAutoLayoutPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FLKAutoLayoutPredicate.m"; sourceTree = "<group>"; };
 		9DCC911B174E898E00C5962B /* RGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMapViewController.h; sourceTree = "<group>"; };
 		9DCC911C174E898E00C5962B /* RGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMapViewController.m; sourceTree = "<group>"; };
 		9DCC911E174EAD4C00C5962B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -158,7 +166,6 @@
 		9DAB5C181753F7E00017CFDB /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				9DAB5C191753F8050017CFDB /* RGMapControllerProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -166,6 +173,12 @@
 		9DAB5C1A1753F9C30017CFDB /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				9DAB5C20175412890017CFDB /* FLKAutoLayoutPredicateList.h */,
+				9DAB5C21175412890017CFDB /* FLKAutoLayoutPredicateList.m */,
+				9DAB5C22175412890017CFDB /* UIView+FLKAutoLayout.h */,
+				9DAB5C23175412890017CFDB /* UIView+FLKAutoLayout.m */,
+				9DAB5C24175412890017CFDB /* UIView+FLKAutoLayoutPredicate.h */,
+				9DAB5C25175412890017CFDB /* UIView+FLKAutoLayoutPredicate.m */,
 				9DCC9120174EBCF300C5962B /* UIView+position.h */,
 				9DCC9121174EBCF300C5962B /* UIView+position.m */,
 			);
@@ -297,6 +310,9 @@
 				9DCC9125174F5E7300C5962B /* RGMapStateModel.m in Sources */,
 				9DCC9137174FA00100C5962B /* RGMapAnnotation.m in Sources */,
 				9DAB5C101753D3960017CFDB /* RGLocationManager.m in Sources */,
+				9DAB5C26175412890017CFDB /* FLKAutoLayoutPredicateList.m in Sources */,
+				9DAB5C27175412890017CFDB /* UIView+FLKAutoLayout.m in Sources */,
+				9DAB5C28175412890017CFDB /* UIView+FLKAutoLayoutPredicate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

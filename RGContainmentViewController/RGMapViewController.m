@@ -12,7 +12,8 @@
 
 @interface RGMapViewController ()<MKMapViewDelegate> {
     
-    RGMapStateModel *mapModel;
+    MKMapView *mapView;
+    RGMapAnnotation *mapAnnotation;
 }
 
 @end
@@ -22,52 +23,105 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [(MKMapView*)self.view setDelegate:self];
-	// Do any additional setup after loading the view.
+    
+    mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
+    [mapView setDelegate:self];
+    [mapView setMapType:MKMapTypeHybrid];
+    mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:mapView];
+    
+    mapAnnotation = [RGMapAnnotation new];
+    [mapView addAnnotation:mapAnnotation];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void) setAnnotationImagePath:(NSString *)annotationImagePath
 {
-    [super viewDidAppear:animated];
+    _annotationImagePath = annotationImagePath;
 }
 
-- (void) updateWithMapModel:(RGMapStateModel*) model
+- (void) updateAnnotationLocation:(CLLocation *)location
 {
-    mapModel = model;
-    RGMapAnnotation *annotation = [RGMapAnnotation new];
-    [annotation updateCoordinate:model.location.coordinate];
-    
-    MKMapView *map = (MKMapView*)self.view;
-    [map removeAnnotations:map.annotations];
-    
-    [map addAnnotation:annotation];
-    
-    [self snapToLocation:model.location];
+    [mapAnnotation setCoordinate:location.coordinate];
+    [self snapToLocation:location];    
 }
 
 - (void) snapToLocation:(CLLocation*) location
 {
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 1000000.0, 1000000.0);
-    [(MKMapView*)self.view setRegion:region animated:YES];
+    [mapView setRegion:region animated:YES];
 }
 
 #pragma mark - MKMapViewDelegate
 
--(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id)annotation{
+-(MKAnnotationView *)mapView:(MKMapView *) theMapView viewForAnnotation:(id)annotation{
     
-    NSString *annotationIdentifier = mapModel.annotationImagePath;
+    NSString *annotationIdentifier = _annotationImagePath;
     
     if([annotation isKindOfClass:[RGMapAnnotation class]]) {
         
-        MKAnnotationView *annotationView=[(MKMapView*)self.view dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+        MKAnnotationView *annotationView = [theMapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
         if(!annotationView){
             annotationView=[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
             annotationView.image=[UIImage imageNamed:annotationIdentifier];
+            
+        } else {
+            
+            annotationView.annotation = annotation;
         }
+        
+        [annotationView setDraggable:_annotationIsDraggable];
+        
         return annotationView;
     }
     return nil;
 }
+
+- (void)mapView:(MKMapView *)mapView
+ annotationView:(MKAnnotationView *)annotationView
+didChangeDragState:(MKAnnotationViewDragState)newState
+   fromOldState:(MKAnnotationViewDragState)oldState
+{
+    if (newState == MKAnnotationViewDragStateEnding)
+    {
+        CLLocationCoordinate2D droppedAt = annotationView.annotation.coordinate;
+        NSLog(@"Pin dropped at %f,%f", droppedAt.latitude, droppedAt.longitude);
+        CLLocation *newLocation = [[CLLocation alloc] initWithCoordinate:droppedAt altitude:0.0f horizontalAccuracy:0.0f verticalAccuracy:0.0f timestamp:[NSDate date]];
+        [self snapToLocation:newLocation];
+        [self.delegate mapController:self didUpdateLocation:newLocation];
+    }
+}
+
+#pragma mark - Reverse geolocation
+
+- (void) reverseGeoCodeLocation:(CLLocation*) location withCompletionBlock:(GeoCompletionHandler) geoCompletionHandler
+{
+    self.geoCompletionHandler = geoCompletionHandler;
+    
+    [[[CLGeocoder alloc] init] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        
+        if (!error) {
+            
+            NSMutableString  *placeStr = [NSMutableString string];
+            
+            for (CLPlacemark *p in placemarks) {
+                
+                NSLog(@"%@", p.description);
+                
+                if (p.name != NULL)
+                    [placeStr appendFormat:@"%@ ", p.name];
+                if (p.locality != NULL)
+                    [placeStr appendFormat:@"%@ ", p.locality];
+                if (p.country != NULL)
+                    [placeStr appendFormat:@"%@ ", p.country];
+                
+                _geoCompletionHandler((NSString*)placeStr);
+            }
+        }
+    }];
+}
+
+#pragma mark Antipode calculation
 
 #pragma mark Helper method
 

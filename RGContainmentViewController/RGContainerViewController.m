@@ -8,17 +8,19 @@
 
 #import "RGContainerViewController.h"
 #import "RGLocationManager.h"
-#import "RGMapControllerProtocol.h"
+#import "RGMapViewController.h"
+#import "UIView+FLKAutoLayout.h"
+//#import "RGMapControllerProtocol.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface RGContainerViewController ()<RGlocationProtocol> {
+@interface RGContainerViewController ()<RGlocationProtocol, RGMapControllerProtocol> {
     
-    CGPoint targetViewOrigin;
-    CGPoint locationViewOrigin;
+    NSLayoutConstraint *topMapYConstrain, *bottomMapYConstrain;
+    RGMapStateModel *locationMapModel, *targetMapModel;
 }
 
-@property (weak, nonatomic) IBOutlet UIView *targetMapView;
-@property (weak, nonatomic) IBOutlet UIView *locationMapView;
+//@property (weak, nonatomic) IBOutlet UIView *targetMapView;
+//@property (weak, nonatomic) IBOutlet UIView *locationMapView;
 
 @property (weak, nonatomic) IBOutlet UILabel *targetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
@@ -26,8 +28,8 @@
 @property (strong, nonatomic) RGLocationManager *locationManager;
 
 //to remove these implement a mapViewProtocol and use that as a reference instead
-@property id<RGMapControllerProtocol> targetMapViewController;
-@property id<RGMapControllerProtocol> locationMapViewController;
+@property RGMapViewController *targetMapViewController;
+@property RGMapViewController *locationMapViewController;
 
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
 
@@ -39,45 +41,50 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"%@", self.childViewControllers.description);
+    _locationMapViewController = [RGMapViewController new];
+    [_locationMapViewController setAnnotationImagePath:@"man"];
+    [_locationMapViewController setAnnotationIsDraggable:YES];
+    [self addChildViewController:_locationMapViewController];
+    [self.view addSubview:_locationMapViewController.view];
+
+    [_locationMapViewController didMoveToParentViewController:self];
+    [_locationMapViewController.view constrainWidthToView:self.view predicate:nil];
+    [_locationMapViewController.view constrainHeightToView:self.view predicate:@"*.4"];
     
-    for (id<RGMapControllerProtocol>mapVC in self.childViewControllers) {
-        
-        NSString *restorationID = [mapVC identifier];
-        
-        if ([restorationID isEqualToString:@"map_controller_target"]) {
-            _targetMapViewController = mapVC;
-            
-        } else if ([restorationID isEqualToString:@"map_controller_location"]) {
-            _locationMapViewController = mapVC;
-        }
-    }
+    topMapYConstrain = [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_locationMapViewController.view attribute:NSLayoutAttributeTop multiplier:1.0f constant:20.0f];
+    [self.view addConstraint:topMapYConstrain];
     
+    _targetMapViewController = [RGMapViewController new];
+    [_targetMapViewController setAnnotationImagePath:@"hole"];
+    [_targetMapViewController setAnnotationIsDraggable:NO];
+    [self addChildViewController:_targetMapViewController];
+    [self.view addSubview:_targetMapViewController.view];
+    
+    [_targetMapViewController didMoveToParentViewController:self];
+    [_targetMapViewController.view constrainWidthToView:self.view predicate:nil];
+    [_targetMapViewController.view constrainHeightToView:self.view predicate:@"*.4"];
+    
+    bottomMapYConstrain = [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_targetMapViewController.view attribute:NSLayoutAttributeBottom multiplier:1.0f constant:20.0f];
+    [self.view addConstraint:bottomMapYConstrain];
+
     _locationManager = [RGLocationManager new];
     _locationManager.delegate = self;
+    _locationMapViewController.delegate = self;
     
-    _targetMapView.layer.shadowColor = [UIColor blackColor].CGColor;
-    _targetMapView.layer.shadowRadius = 4.0f;
-    _targetMapView.layer.shadowOpacity = 0.5f;
-    _targetMapView.layer.shadowOffset = CGSizeMake(0.0f, -2.0f);
-    _targetMapView.clipsToBounds = NO;
+    _locationMapViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    _locationMapViewController.view.layer.shadowRadius = 4.0f;
+    _locationMapViewController.view.layer.shadowOpacity = 0.5f;
+    _locationMapViewController.view.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
     
-    _locationMapView.layer.shadowColor = [UIColor blackColor].CGColor;
-    _locationMapView.layer.shadowRadius = 4.0f;
-    _locationMapView.layer.shadowOpacity = 0.5f;
-    _locationMapView.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
-    _locationMapView.clipsToBounds = NO;
-    
+    _targetMapViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    _targetMapViewController.view.layer.shadowRadius = 4.0f;
+    _targetMapViewController.view.layer.shadowOpacity = 0.5f;
+    _targetMapViewController.view.layer.shadowOffset = CGSizeMake(0.0f, -2.0f);
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    //Capture the default position of the maps for later animation
-    targetViewOrigin = _targetMapView.frame.origin;
-    locationViewOrigin = _locationMapView.frame.origin;
-    
     [_locationManager startUpdatingLocation];
 }
 
@@ -86,75 +93,68 @@
     [_locationManager stopUpdatingLocation];
 }
 
-- (void)animateMapViews:(id)sender
+- (IBAction)infoButtonDownHandler:(id)sender {
+    
+    topMapYConstrain.constant = CGRectGetHeight(_locationMapViewController.view.frame) - 20.0f;
+    bottomMapYConstrain.constant = -CGRectGetHeight(_targetMapViewController.view.frame) + 60;
+    [self updateViewLayout:YES];
+}
+
+- (IBAction)infoButtonUpHandler:(id)sender
 {
-    CGPoint locationOrigin = CGPointZero;
-    CGPoint targetOrigin = CGPointZero;
-    
-    if (CGPointEqualToPoint(_targetMapView.frame.origin, targetViewOrigin) && CGPointEqualToPoint(_locationMapView.frame.origin, locationViewOrigin)) {
+    topMapYConstrain.constant = 20.0f;
+    bottomMapYConstrain.constant = 20.0f;
+    [self updateViewLayout:YES];
+}
 
-        targetOrigin = _targetMapView.frame.origin;
-        targetOrigin.y += CGRectGetHeight(_targetMapView.frame) - 30.0f;
-        
-        locationOrigin = _locationMapView.frame.origin;
-        locationOrigin.y -= CGRectGetHeight(_locationMapView.frame) - 30.0f;
-        _infoButton.selected = YES;
-        
-    } else {
-
-        targetOrigin = targetViewOrigin;
-        locationOrigin = locationViewOrigin;
-        
-        _infoButton.selected = NO;
-    }
+- (void) updateViewLayout:(BOOL) animated
+{
+    [_locationMapViewController.view setNeedsUpdateConstraints];
+    [_targetMapViewController.view setNeedsUpdateConstraints];
     
-    [UIView animateWithDuration:0.3f
+    [UIView animateWithDuration:0.2f
                           delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseInOut
+                        options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          
-                         _targetMapView.frameOrigin = targetOrigin;
-                         _locationMapView.frameOrigin = locationOrigin;
+                         [_locationMapViewController.view layoutIfNeeded];
+                         [_targetMapViewController.view layoutIfNeeded];
                          
                      } completion:nil];
 }
 
-- (IBAction)infoButtonUpHandler:(id)sender {
-    
-    [self animateMapViews:sender];
-}
+#pragma mark RGMapControllerProtocol
 
-- (IBAction)infoButtonDownHandler:(id)sender {
- 
-    [self animateMapViews:sender];
+- (void) mapController:(id)controller didUpdateLocation:(CLLocation *)location
+{
+    [self updateMapsWithLocation:location];
 }
 
 #pragma mark RGlocationProtocol
 
-- (void) locationController:(id) controller didUpDateLocation:(CLLocation*) location
+- (void) locationController:(id) controller didUpdateLocation:(CLLocation*) location
 {
-    //Construct a new model object to update the map
-    RGMapStateModel *locationMapModel = [RGMapStateModel new];
-    locationMapModel.location = location;
-    locationMapModel.annotationImagePath = @"man.png";
-    [_locationMapViewController updateWithMapModel:locationMapModel];
+    [self updateMapsWithLocation:location];
+}
 
+- (void) updateMapsWithLocation:(CLLocation*) location
+{
+    [_locationMapViewController updateAnnotationLocation:location];
+    
     //Reverse geocode the location
-    [locationMapModel reverseGeoCodeLocation:location withCompletionBlock:^(NSString *string) {
+    [_locationMapViewController reverseGeoCodeLocation:location withCompletionBlock:^(NSString *string) {
         _locationLabel.text = [NSString stringWithFormat:@"Start Digging at :\n%@", string];
     }];
     
     //Construct the antipode from the location
     CLLocation *antipodeLocation = [RGMapStateModel antipodeFromLocation:location];
-    RGMapStateModel *targetMapModel = [RGMapStateModel new];
-    targetMapModel.location = antipodeLocation;
-    targetMapModel.annotationImagePath = @"hole.png";
-    
-    [_targetMapViewController updateWithMapModel:targetMapModel];
+    [targetMapModel setLocation:antipodeLocation];
+ 
+    [_targetMapViewController updateAnnotationLocation:antipodeLocation];
     
     //Reverse geocode the antipode
-    [targetMapModel reverseGeoCodeLocation:antipodeLocation withCompletionBlock:^(NSString *string) {
-       _targetLabel.text = [NSString stringWithFormat:@"End up at :\n%@", string];
+    [_targetMapViewController reverseGeoCodeLocation:antipodeLocation withCompletionBlock:^(NSString *string) {
+        _targetLabel.text = [NSString stringWithFormat:@"End up at :\n%@", string];
     }];
 }
 

@@ -28,18 +28,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <containerView clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kql-PT-X7U">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="wxJ-Jn-4h8" kind="embed" id="neY-27-742"/>
-                                </connections>
-                            </containerView>
-                            <containerView clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hut-Z8-44E">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="Jwe-1t-Q8t" kind="embed" id="pBt-uQ-DE2"/>
-                                </connections>
-                            </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9n-Be-8Kd">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="54" id="Hbe-cO-0At"/>
@@ -61,20 +49,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Hut-Z8-44E" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="3rm-1Z-qLG"/>
-                            <constraint firstItem="Kql-PT-X7U" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="4OO-bi-mPL"/>
                             <constraint firstAttribute="trailing" secondItem="Hkp-h9-FYo" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="6MN-Q2-RkW"/>
-                            <constraint firstItem="Kql-PT-X7U" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="6ws-QH-qzK"/>
                             <constraint firstItem="Hkp-h9-FYo" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="8el-mZ-7I5"/>
                             <constraint firstItem="E9n-Be-8Kd" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="136" id="J74-fd-EED"/>
-                            <constraint firstItem="Hut-Z8-44E" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="KcG-3G-xxK"/>
-                            <constraint firstItem="Hut-Z8-44E" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="PV4-9P-PpP"/>
-                            <constraint firstItem="Hkp-h9-FYo" firstAttribute="centerY" secondItem="Kql-PT-X7U" secondAttribute="centerY" type="default" id="Wak-13-CWx"/>
                             <constraint firstItem="p9N-7p-TmY" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="XoN-I7-2oW"/>
                             <constraint firstAttribute="trailing" secondItem="p9N-7p-TmY" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Y0d-is-hEW"/>
                             <constraint firstItem="p9N-7p-TmY" firstAttribute="top" secondItem="3" secondAttribute="top" constant="20" symbolic="YES" type="default" id="f3Z-SL-a1e"/>
-                            <constraint firstItem="p9N-7p-TmY" firstAttribute="centerY" secondItem="Hut-Z8-44E" secondAttribute="centerY" type="default" id="kMt-Oz-VSW"/>
-                            <constraint firstItem="Kql-PT-X7U" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="m7L-mg-7Tc"/>
                             <constraint firstItem="E9n-Be-8Kd" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" type="default" id="p1P-0i-3Ma"/>
                             <constraint firstAttribute="bottom" secondItem="Hkp-h9-FYo" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="zYA-FW-3aO"/>
                         </constraints>
@@ -82,41 +62,11 @@
                     <connections>
                         <outlet property="infoButton" destination="E9n-Be-8Kd" id="m1c-mb-MTW"/>
                         <outlet property="locationLabel" destination="p9N-7p-TmY" id="4KC-4k-Tnn"/>
-                        <outlet property="locationMapView" destination="Hut-Z8-44E" id="sgV-N0-BCh"/>
                         <outlet property="targetLabel" destination="Hkp-h9-FYo" id="CeQ-KI-Ytg"/>
-                        <outlet property="targetMapView" destination="Kql-PT-X7U" id="5ZJ-73-VR1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-        </scene>
-        <!--Map View Controller-->
-        <scene sceneID="oDQ-Bu-PGZ">
-            <objects>
-                <viewController storyboardIdentifier="map_controller_target" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wxJ-Jn-4h8" customClass="RGMapViewController" sceneMemberID="viewController">
-                    <mapView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" id="Ohr-Uv-1Qp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </mapView>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eYg-p5-6Je" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="981" y="681"/>
-        </scene>
-        <!--Map View Controller-->
-        <scene sceneID="dhP-xt-Gd7">
-            <objects>
-                <viewController storyboardIdentifier="map_controller_location" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jwe-1t-Q8t" customClass="RGMapViewController" sceneMemberID="viewController">
-                    <mapView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" id="BDE-DK-Zrr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </mapView>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R4z-cY-yXC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="981" y="343"/>
         </scene>
     </scenes>
     <resources>
@@ -129,15 +79,14 @@
         <class className="RGContainerViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RGContainerViewController.h"/>
             <relationships>
+                <relationship kind="action" name="infoButtonDownHandler:"/>
+                <relationship kind="action" name="infoButtonUpHandler:"/>
                 <relationship kind="outlet" name="infoButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="locationMapView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="targetLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="targetMapView" candidateClass="UIView"/>
             </relationships>
-        </class>
-        <class className="RGMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RGMapViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
