@@ -17,17 +17,13 @@
         CLLocationDegrees newLatitude;
         CLLocationDegrees newLongitude;
         
-        double northSouthDirection = -90.0;
-        double eastWestDirection = -180.0;
-        
-        if (location.coordinate.latitude < 0.0)
-            northSouthDirection *= -1.0;
+        double longitudeCorrection = -180.0;
         
         if (location.coordinate.longitude < 0.0)
-            eastWestDirection *= -1.0;
+            longitudeCorrection *= -1.0;
             
-        newLatitude = location.coordinate.latitude + northSouthDirection;
-        newLongitude = location.coordinate.longitude + eastWestDirection;
+        newLatitude = location.coordinate.latitude * -1.0f;
+        newLongitude = location.coordinate.longitude + longitudeCorrection;
         
         CLLocation *antipodeLocation = [[CLLocation alloc] initWithLatitude:newLatitude longitude:newLongitude];
         
