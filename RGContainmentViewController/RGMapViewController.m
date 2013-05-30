@@ -8,6 +8,8 @@
 
 #import "RGMapViewController.h"
 #import "RGMapAnnotation.h"
+#import "RGAnnotationView.h"
+
 #import <MapKit/MapKit.h>
 
 @interface RGMapViewController ()<MKMapViewDelegate> {
@@ -62,9 +64,9 @@
     
     if([annotation isKindOfClass:[RGMapAnnotation class]]) {
         
-        MKAnnotationView *annotationView = [theMapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+        RGAnnotationView *annotationView = (RGAnnotationView*)[theMapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
         if(!annotationView){
-            annotationView=[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+            annotationView=[[RGAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
             annotationView.image=[UIImage imageNamed:annotationIdentifier];
             
         } else {
@@ -90,6 +92,13 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         CLLocation *newLocation = [[CLLocation alloc] initWithCoordinate:droppedAt altitude:0.0f horizontalAccuracy:0.0f verticalAccuracy:0.0f timestamp:[NSDate date]];
         [self snapToLocation:newLocation];
         [self.delegate mapController:self didUpdateLocation:newLocation];
+    } else if (newState == MKAnnotationViewDragStateStarting) {
+        
+        [annotationView setDragState:newState animated:YES];
+        
+    } else if(newState == MKAnnotationViewDragStateEnding) {
+        
+        [annotationView setDragState:newState animated:YES];
     }
 }
 

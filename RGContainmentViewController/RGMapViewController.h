@@ -24,6 +24,9 @@ typedef void (^GeoCompletionHandler)(NSString *string);
 @property(nonatomic, strong) NSString *annotationImagePath;
 @property(nonatomic, copy) GeoCompletionHandler geoCompletionHandler;
 
+//KVO Observable properties
+@property(nonatomic, strong) NSString *placemarkString;
+
 - (void) updateAnnotationLocation:(CLLocation*) location;
 - (NSString*) identifier;
 - (void) reverseGeoCodeLocation:(CLLocation*) location withCompletionBlock:(GeoCompletionHandler) geoCompletionHandler;
