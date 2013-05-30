@@ -9,11 +9,13 @@
 #import "RGContainerViewController.h"
 #import "RGLocationManager.h"
 #import "RGMapViewController.h"
+
+#import "CLLocation+Utilities.h"
 #import "UIView+FLKAutoLayout.h"
-//#import "RGMapControllerProtocol.h"
+
 #import <QuartzCore/QuartzCore.h>
 
-@interface RGContainerViewController ()<RGlocationProtocol, RGMapControllerProtocol> {
+@interface RGContainerViewController ()<RGlocationProtocol> {
     
     NSLayoutConstraint *topMapYConstrain, *bottomMapYConstrain;
     RGMapStateModel *locationMapModel, *targetMapModel;
@@ -38,35 +40,46 @@
 {
     [super viewDidLoad];
     
+    //View specific setup for locationMapController
     _locationMapViewController = [RGMapViewController new];
     [_locationMapViewController setAnnotationImagePath:@"man"];
-    [_locationMapViewController setAnnotationIsDraggable:YES];
     [self addChildViewController:_locationMapViewController];
     [self.view addSubview:_locationMapViewController.view];
-
+    
+    //Notify child controller that he has a parent
     [_locationMapViewController didMoveToParentViewController:self];
+
+    //Add view constraints
     [_locationMapViewController.view constrainWidthToView:self.view predicate:nil];
     [_locationMapViewController.view constrainHeightToView:self.view predicate:@"*.4"];
-    
     topMapYConstrain = [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_locationMapViewController.view attribute:NSLayoutAttributeTop multiplier:1.0f constant:20.0f];
     [self.view addConstraint:topMapYConstrain];
     
+    //Observe properties
+    [_locationMapViewController addObserver:self forKeyPath:@"currentLocation" options:NSKeyValueObservingOptionNew context:NULL];
+    [_locationMapViewController addObserver:self forKeyPath:@"locationString" options:NSKeyValueObservingOptionNew context:NULL];
+    
+    //View specific setup for targetMapController
     _targetMapViewController = [RGMapViewController new];
     [_targetMapViewController setAnnotationImagePath:@"hole"];
-    [_targetMapViewController setAnnotationIsDraggable:NO];
     [self addChildViewController:_targetMapViewController];
     [self.view addSubview:_targetMapViewController.view];
-    
+
+    //Notify child controller that he has a parent
     [_targetMapViewController didMoveToParentViewController:self];
+    
+    //Add view constraints    
     [_targetMapViewController.view constrainWidthToView:self.view predicate:nil];
     [_targetMapViewController.view constrainHeightToView:self.view predicate:@"*.4"];
-    
     bottomMapYConstrain = [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_targetMapViewController.view attribute:NSLayoutAttributeBottom multiplier:1.0f constant:20.0f];
     [self.view addConstraint:bottomMapYConstrain];
 
+    //Observe properties
+    [_targetMapViewController addObserver:self forKeyPath:@"currentLocation" options:NSKeyValueObservingOptionNew context:NULL];
+    [_targetMapViewController addObserver:self forKeyPath:@"locationString" options:NSKeyValueObservingOptionNew context:NULL];
+    
     _locationManager = [RGLocationManager new];
     _locationManager.delegate = self;
-    _locationMapViewController.delegate = self;
     
     _locationMapViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
     _locationMapViewController.view.layer.shadowRadius = 4.0f;
@@ -87,7 +100,7 @@
 //    RGMapViewController *testVC = [RGMapViewController new];
 //    [testVC setAnnotationImagePath:@"man"];
 //    [testVC setAnnotationIsDraggable:NO];
-//    
+//
 //    [self presentViewController:testVC animated:YES completion:^{
 //        NSLog(@"Done!");
 //        
@@ -130,6 +143,36 @@
                      } completion:nil];
 }
 
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"currentLocation"]) {
+     
+        RGMapViewController *oppositeController = [self oppositeControllerForController:object];
+        
+        CLLocation *newLocation = [change objectForKey:@"new"];
+        [oppositeController updateAnnotationLocation:[newLocation antipode]];
+        
+    } else if ([keyPath isEqualToString:@"locationString"]) {
+        
+        //update locationLabel with [change getObjectForKey:@"new"];
+    }
+}
+
+#pragma mark Helper method for getting the opposite map controller
+
+- (RGMapViewController*) oppositeControllerForController:(RGMapViewController*) controller
+{
+    if ([controller isKindOfClass:[RGMapViewController class]]) {
+        
+        if ([controller isEqual:_locationMapViewController])
+            return _targetMapViewController;
+        else if ([controller isEqual:_targetMapViewController])
+            return _locationMapViewController;
+    }
+    
+    return nil;
+}
+
 #pragma mark RGMapControllerProtocol
 
 - (void) mapController:(id)controller didUpdateLocation:(CLLocation *)location
@@ -149,9 +192,9 @@
     [_locationMapViewController updateAnnotationLocation:location];
     
     //Reverse geocode the location
-    [_locationMapViewController reverseGeoCodeLocation:location withCompletionBlock:^(NSString *string) {
-        _locationLabel.text = [NSString stringWithFormat:@"Start Digging at :\n%@", string];
-    }];
+//    [_locationMapViewController reverseGeoCodeLocation:location withCompletionBlock:^(NSString *string) {
+//        _locationLabel.text = [NSString stringWithFormat:@"Start Digging at :\n%@", string];
+//    }];
     
     //Construct the antipode from the location
     CLLocation *antipodeLocation = [RGMapStateModel antipodeFromLocation:location];
@@ -160,9 +203,9 @@
     [_targetMapViewController updateAnnotationLocation:antipodeLocation];
     
     //Reverse geocode the antipode
-    [_targetMapViewController reverseGeoCodeLocation:antipodeLocation withCompletionBlock:^(NSString *string) {
-        _targetLabel.text = [NSString stringWithFormat:@"End up at :\n%@", string];
-    }];
+//    [_targetMapViewController reverseGeoCodeLocation:antipodeLocation withCompletionBlock:^(NSString *string) {
+//        _targetLabel.text = [NSString stringWithFormat:@"End up at :\n%@", string];
+//    }];
 }
 
 - (void) locationController:(id) controller didFailWithError:(NSError*) error

@@ -47,7 +47,9 @@
 - (void) updateAnnotationLocation:(CLLocation *)location
 {
     [mapAnnotation setCoordinate:location.coordinate];
-    [self snapToLocation:location];    
+    [self snapToLocation:location];
+    //Avoid self.currentLocation here as it will cause the KVO observer to repeatedly try and update the
+    _currentLocation = location;
 }
 
 - (void) snapToLocation:(CLLocation*) location
@@ -68,13 +70,13 @@
         if(!annotationView){
             annotationView=[[RGAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
             annotationView.image=[UIImage imageNamed:annotationIdentifier];
+            annotationView.image = [UIImage imageNamed:self.annotationImagePath];
+            annotationView.draggable = YES;
             
         } else {
             
             annotationView.annotation = annotation;
         }
-        
-        [annotationView setDraggable:_annotationIsDraggable];
         
         return annotationView;
     }
@@ -89,25 +91,17 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     if (newState == MKAnnotationViewDragStateEnding)
     {
         CLLocationCoordinate2D droppedAt = annotationView.annotation.coordinate;
-        CLLocation *newLocation = [[CLLocation alloc] initWithCoordinate:droppedAt altitude:0.0f horizontalAccuracy:0.0f verticalAccuracy:0.0f timestamp:[NSDate date]];
+        CLLocation *newLocation = [[CLLocation alloc] initWithCoordinate:droppedAt altitude:0.0f horizontalAccuracy:5.0f verticalAccuracy:5.0f timestamp:[NSDate date]];
+        
         [self snapToLocation:newLocation];
-        [self.delegate mapController:self didUpdateLocation:newLocation];
-    } else if (newState == MKAnnotationViewDragStateStarting) {
-        
-        [annotationView setDragState:newState animated:YES];
-        
-    } else if(newState == MKAnnotationViewDragStateEnding) {
-        
-        [annotationView setDragState:newState animated:YES];
+        self.currentLocation = newLocation;
+        [self reverseGeoCodeLocation:self.currentLocation];   
     }
 }
 
 #pragma mark - Reverse geolocation
-
-- (void) reverseGeoCodeLocation:(CLLocation*) location withCompletionBlock:(GeoCompletionHandler) geoCompletionHandler
+- (void) reverseGeoCodeLocation:(CLLocation*) location
 {
-    self.geoCompletionHandler = geoCompletionHandler;
-    
     [[[CLGeocoder alloc] init] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         
         if (!error) {
@@ -125,20 +119,13 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                 if (p.country != NULL)
                     [placeStr appendFormat:@"%@ ", p.country];
                 
-                _geoCompletionHandler((NSString*)placeStr);
+                self.locationString = (NSString*)placeStr;
             }
         }
     }];
 }
 
 #pragma mark Antipode calculation
-
-#pragma mark Helper method
-
-- (NSString*) identifier
-{
-    return self.restorationIdentifier;
-}
 
 - (void)didReceiveMemoryWarning
 {

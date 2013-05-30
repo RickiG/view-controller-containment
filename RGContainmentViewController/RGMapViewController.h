@@ -9,27 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "RGMapStateModel.h"
 
-typedef void (^GeoCompletionHandler)(NSString *string);
+@interface RGMapViewController : UIViewController
 
-@protocol RGMapControllerProtocol <NSObject>
-
-- (void) mapController:(id) controller didUpdateLocation:(CLLocation*) location;
-
-@end
-
-@interface RGMapViewController : UIViewController<RGMapControllerProtocol>
-
-@property(nonatomic, assign) BOOL annotationIsDraggable;
-@property(nonatomic, weak) id<RGMapControllerProtocol> delegate;
 @property(nonatomic, strong) NSString *annotationImagePath;
-@property(nonatomic, copy) GeoCompletionHandler geoCompletionHandler;
 
 //KVO Observable properties
 @property(nonatomic, strong) NSString *locationString;
 @property(nonatomic, strong) CLLocation *currentLocation;
 
 - (void) updateAnnotationLocation:(CLLocation*) location;
-- (NSString*) identifier;
-- (void) reverseGeoCodeLocation:(CLLocation*) location withCompletionBlock:(GeoCompletionHandler) geoCompletionHandler;
+- (void) reverseGeoCodeLocation:(CLLocation*) location;
 
 @end

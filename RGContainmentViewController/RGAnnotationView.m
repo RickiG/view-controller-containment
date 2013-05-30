@@ -21,29 +21,48 @@
 
 - (void) setDragState:(MKAnnotationViewDragState)newDragState animated:(BOOL)animated
 {
-    CGAffineTransform transform;
+    float duration = (animated ? 0.2f : 0.0f);
     
     if (newDragState == MKAnnotationViewDragStateStarting) {
-        transform = CGAffineTransformMakeScale(1.5f, 1.5f);
+        
+        CGPoint dropPoint = CGPointMake(self.center.x,self.center.y-10);
+        
+        [UIView animateWithDuration:duration animations:^{
+            
+            self.center = dropPoint;
+            
+        } completion:^(BOOL finished) {
+            
+            self.dragState = MKAnnotationViewDragStateDragging;
+        }];
+        
     } else if (newDragState == MKAnnotationViewDragStateEnding) {
-        transform = CGAffineTransformIdentity;
+        
+        CGPoint dropPoint = CGPointMake(self.center.x,self.center.y+10);
+        
+        [UIView animateWithDuration:duration animations:^{
+            
+            self.center = dropPoint;
+            
+        } completion:^(BOOL finished) {
+
+            self.dragState = MKAnnotationViewDragStateEnding;
+            self.dragState = MKAnnotationViewDragStateNone;
+        }];
+        
+    } else if (newDragState == MKAnnotationViewDragStateCanceling) {
+        
+        CGPoint dropPoint = CGPointMake(self.center.x,self.center.y+10);
+        
+        [UIView animateWithDuration:duration animations:^{
+            
+            self.center = dropPoint;
+            
+        } completion:^(BOOL finished) {
+            
+            self.dragState = MKAnnotationViewDragStateNone;
+        }];
     }
-    
-    float duration = (animated ? 0.2f : 0.0f);
-
-    [UIView animateWithDuration:duration animations:^{
-       
-        self.transform = transform;
-    }];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
