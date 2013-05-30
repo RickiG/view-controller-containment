@@ -83,6 +83,16 @@
 {
     [super viewDidAppear:animated];
     [_locationManager startUpdatingLocation];
+    
+//    RGMapViewController *testVC = [RGMapViewController new];
+//    [testVC setAnnotationImagePath:@"man"];
+//    [testVC setAnnotationIsDraggable:NO];
+//    
+//    [self presentViewController:testVC animated:YES completion:^{
+//        NSLog(@"Done!");
+//        
+//        [testVC updateAnnotationLocation:[[CLLocation alloc] initWithLatitude:55.0 longitude:12.0]];
+//    }];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
