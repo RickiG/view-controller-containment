@@ -19,6 +19,24 @@
     return self;
 }
 
+- (void) setDragState:(MKAnnotationViewDragState)newDragState animated:(BOOL)animated
+{
+    CGAffineTransform transform;
+    
+    if (newDragState == MKAnnotationViewDragStateStarting) {
+        transform = CGAffineTransformMakeScale(1.5f, 1.5f);
+    } else if (newDragState == MKAnnotationViewDragStateEnding) {
+        transform = CGAffineTransformIdentity;
+    }
+    
+    float duration = (animated ? 0.2f : 0.0f);
+
+    [UIView animateWithDuration:duration animations:^{
+       
+        self.transform = transform;
+    }];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
