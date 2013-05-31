@@ -12,8 +12,6 @@
 @interface RGMapViewController : UIViewController
 
 @property(nonatomic, strong) NSString *annotationImagePath;
-
-//KVO Observable properties
 @property(nonatomic, strong) NSString *locationString;
 @property(nonatomic, strong) CLLocation *currentLocation;
 

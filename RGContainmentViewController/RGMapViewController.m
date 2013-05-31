@@ -15,7 +15,6 @@
 @interface RGMapViewController ()<MKMapViewDelegate> {
     
     MKMapView *mapView;
-    RGMapAnnotation *mapAnnotation;
 }
 
 @end
@@ -33,22 +32,17 @@
     mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:mapView];
     
-    
-
-    mapAnnotation = [RGMapAnnotation new];
+    RGMapAnnotation *mapAnnotation = [RGMapAnnotation new];
     [mapView addAnnotation:mapAnnotation];
-}
-
-- (void) setAnnotationImagePath:(NSString *)annotationImagePath
-{
-    _annotationImagePath = annotationImagePath;
 }
 
 - (void) updateAnnotationLocation:(CLLocation *)location
 {
-    [mapAnnotation setCoordinate:location.coordinate];
+    RGMapAnnotation *annotation = [mapView.annotations lastObject];
+    
+    [annotation setCoordinate:location.coordinate];
     [self snapToLocation:location];
-    //Avoid self.currentLocation here as it will cause the KVO observer to repeatedly try and update the
+    //Avoid self.currentLocation here as it will cause the KVO observer to repeatedly try and update
     _currentLocation = location;
     [self reverseGeoCodeLocation:_currentLocation];
 }
@@ -63,7 +57,7 @@
 
 -(MKAnnotationView *)mapView:(MKMapView *) theMapView viewForAnnotation:(id)annotation{
     
-    NSString *annotationIdentifier = _annotationImagePath;
+    NSString *annotationIdentifier = self.annotationImagePath;
     
     if([annotation isKindOfClass:[RGMapAnnotation class]]) {
         
@@ -71,7 +65,10 @@
         if(!annotationView){
             annotationView=[[RGAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
             annotationView.image=[UIImage imageNamed:annotationIdentifier];
-            annotationView.image = [UIImage imageNamed:self.annotationImagePath];
+            
+            if (self.annotationImagePath)
+                annotationView.image = [UIImage imageNamed:self.annotationImagePath];
+
             annotationView.draggable = YES;
             
         } else {
@@ -81,6 +78,7 @@
         
         return annotationView;
     }
+    
     return nil;
 }
 
@@ -92,7 +90,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     if (newState == MKAnnotationViewDragStateEnding)
     {
         CLLocationCoordinate2D droppedAt = annotationView.annotation.coordinate;
-        CLLocation *newLocation = [[CLLocation alloc] initWithCoordinate:droppedAt altitude:0.0f horizontalAccuracy:5.0f verticalAccuracy:5.0f timestamp:[NSDate date]];
+        CLLocation *newLocation = [[CLLocation alloc] initWithLatitude:droppedAt.latitude longitude:droppedAt.longitude];
         
         [self snapToLocation:newLocation];
         self.currentLocation = newLocation;
@@ -110,8 +108,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             NSMutableString  *placeStr = [NSMutableString string];
             
             for (CLPlacemark *p in placemarks) {
-                
-                NSLog(@"%@", p.description);
                 
                 if (p.name != NULL)
                     [placeStr appendFormat:@"%@ ", p.name];
