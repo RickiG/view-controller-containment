@@ -146,16 +146,30 @@
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"currentLocation"]) {
-     
-        RGMapViewController *oppositeController = [self oppositeControllerForController:object];
+        
+        RGMapViewController *oppositeController = nil;
+        
+        if ([object isEqual:_locationMapViewController])
+            oppositeController = _targetMapViewController;
+        else
+            oppositeController = _locationMapViewController;
         
         CLLocation *newLocation = [change objectForKey:@"new"];
         [oppositeController updateAnnotationLocation:[newLocation antipode]];
         
     } else if ([keyPath isEqualToString:@"locationString"]) {
         
-        //update locationLabel with [change getObjectForKey:@"new"];
+        UILabel *locationLabel = nil;
+        
+        if ([object isEqual:_locationMapViewController])
+            locationLabel = self.locationLabel;
+        else
+            locationLabel = self.targetLabel;
+        
+        locationLabel.text = [change objectForKey:@"new"];
     }
+    
+    
 }
 
 #pragma mark Helper method for getting the opposite map controller

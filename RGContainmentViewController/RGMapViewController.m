@@ -50,6 +50,7 @@
     [self snapToLocation:location];
     //Avoid self.currentLocation here as it will cause the KVO observer to repeatedly try and update the
     _currentLocation = location;
+    [self reverseGeoCodeLocation:_currentLocation];
 }
 
 - (void) snapToLocation:(CLLocation*) location
