@@ -8,25 +8,22 @@
 
 #import "RGGeoInfoViewController.h"
 
-@interface RGGeoInfoViewController ()
+@interface RGGeoInfoViewController () {
+    
+    UILabel *infoLabel;
+}
 
 @end
 
 @implementation RGGeoInfoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    infoLabel = [UILabel new];
+//    infoLabel.autoresizesSubviews
+    
 }
 
 - (void)didReceiveMemoryWarning
