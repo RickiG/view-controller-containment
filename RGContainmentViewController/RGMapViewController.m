@@ -9,7 +9,7 @@
 #import "RGMapViewController.h"
 #import "RGMapAnnotation.h"
 #import "RGAnnotationView.h"
-
+#import "UIView+FLKAutoLayout.h"
 #import <MapKit/MapKit.h>
 
 @interface RGMapViewController ()<MKMapViewDelegate> {
@@ -28,9 +28,13 @@
     mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
     [mapView setDelegate:self];
     [mapView setMapType:MKMapTypeHybrid];
-    mapView.translatesAutoresizingMaskIntoConstraints = NO;
-    mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:mapView];
+    [self.view addSubview:mapView];    
+    
+    [mapView constrainWidthToView:self.view predicate:nil];
+    [mapView constrainHeightToView:self.view predicate:nil];
+    
+//    mapView.translatesAutoresizingMaskIntoConstraints = NO;
+//    mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     RGMapAnnotation *mapAnnotation = [RGMapAnnotation new];
     [mapView addAnnotation:mapAnnotation];
