@@ -25,16 +25,17 @@
 {
     [super viewDidLoad];
     
+    [self.view setBackgroundColor:[UIColor greenColor]];
+    
     mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
     [mapView setDelegate:self];
     [mapView setMapType:MKMapTypeHybrid];
     [self.view addSubview:mapView];    
     
+    [mapView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [mapView constrainWidthToView:self.view predicate:nil];
     [mapView constrainHeightToView:self.view predicate:nil];
-    
-//    mapView.translatesAutoresizingMaskIntoConstraints = NO;
-//    mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [mapView alignTopEdgeWithView:self.view predicate:nil];
     
     RGMapAnnotation *mapAnnotation = [RGMapAnnotation new];
     [mapView addAnnotation:mapAnnotation];

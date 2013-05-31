@@ -7,6 +7,7 @@
 //
 
 #import "RGGeoInfoViewController.h"
+#import "UIView+FLKAutoLayout.h"
 
 @interface RGGeoInfoViewController () {
     
@@ -22,8 +23,17 @@
     [super viewDidLoad];
     
     infoLabel = [UILabel new];
-//    infoLabel.autoresizesSubviews
+    infoLabel.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:infoLabel];
+
+//    [self.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 500.0f)];
     
+    [infoLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [infoLabel constrainWidthToView:self.view predicate:nil];
+    [infoLabel constrainHeightToView:self.view predicate:nil];
+    [infoLabel alignTopEdgeWithView:self.view predicate:nil];
+    
+    [self.view setBackgroundColor:[UIColor redColor]];
 }
 
 - (void)didReceiveMemoryWarning
