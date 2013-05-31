@@ -7,7 +7,6 @@
 //
 
 #import "RGContainerViewController.h"
-#import "RGLocationManager.h"
 #import "RGMapViewController.h"
 
 #import "CLLocation+Utilities.h"
@@ -15,7 +14,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface RGContainerViewController ()<RGlocationProtocol> {
+@interface RGContainerViewController () {
     
     NSLayoutConstraint *topMapYConstrain, *bottomMapYConstrain;
     RGMapStateModel *locationMapModel, *targetMapModel;
@@ -24,9 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *targetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
-@property (strong, nonatomic) RGLocationManager *locationManager;
-
-//to remove these implement a mapViewProtocol and use that as a reference instead
 @property RGMapViewController *targetMapViewController;
 @property RGMapViewController *locationMapViewController;
 
@@ -78,9 +74,6 @@
     [_targetMapViewController addObserver:self forKeyPath:@"currentLocation" options:NSKeyValueObservingOptionNew context:NULL];
     [_targetMapViewController addObserver:self forKeyPath:@"locationString" options:NSKeyValueObservingOptionNew context:NULL];
     
-    _locationManager = [RGLocationManager new];
-    _locationManager.delegate = self;
-    
     _locationMapViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
     _locationMapViewController.view.layer.shadowRadius = 4.0f;
     _locationMapViewController.view.layer.shadowOpacity = 0.5f;
@@ -92,25 +85,17 @@
     _targetMapViewController.view.layer.shadowOffset = CGSizeMake(0.0f, -2.0f);
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
-    [_locationManager startUpdatingLocation];
+    [super viewWillAppear:animated];
     
-//    RGMapViewController *testVC = [RGMapViewController new];
-//    [testVC setAnnotationImagePath:@"man"];
-//    [testVC setAnnotationIsDraggable:NO];
-//
-//    [self presentViewController:testVC animated:YES completion:^{
-//        NSLog(@"Done!");
-//        
-//        [testVC updateAnnotationLocation:[[CLLocation alloc] initWithLatitude:55.0 longitude:12.0]];
-//    }];
+    CLLocation *initialLocation = [[CLLocation alloc] initWithLatitude:56.55 longitude:8.316667];
+    [_locationMapViewController updateAnnotationLocation:initialLocation];
+    [_targetMapViewController updateAnnotationLocation:[initialLocation antipode]];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
-    [_locationManager stopUpdatingLocation];
 }
 
 - (IBAction)infoButtonDownHandler:(id)sender {
@@ -168,63 +153,6 @@
         
         locationLabel.text = [change objectForKey:@"new"];
     }
-    
-    
-}
-
-#pragma mark Helper method for getting the opposite map controller
-
-- (RGMapViewController*) oppositeControllerForController:(RGMapViewController*) controller
-{
-    if ([controller isKindOfClass:[RGMapViewController class]]) {
-        
-        if ([controller isEqual:_locationMapViewController])
-            return _targetMapViewController;
-        else if ([controller isEqual:_targetMapViewController])
-            return _locationMapViewController;
-    }
-    
-    return nil;
-}
-
-#pragma mark RGMapControllerProtocol
-
-- (void) mapController:(id)controller didUpdateLocation:(CLLocation *)location
-{
-    [self updateMapsWithLocation:location];
-}
-
-#pragma mark RGlocationProtocol
-
-- (void) locationController:(id) controller didUpdateLocation:(CLLocation*) location
-{
-    [self updateMapsWithLocation:location];
-}
-
-- (void) updateMapsWithLocation:(CLLocation*) location
-{
-    [_locationMapViewController updateAnnotationLocation:location];
-    
-    //Reverse geocode the location
-//    [_locationMapViewController reverseGeoCodeLocation:location withCompletionBlock:^(NSString *string) {
-//        _locationLabel.text = [NSString stringWithFormat:@"Start Digging at :\n%@", string];
-//    }];
-    
-    //Construct the antipode from the location
-    CLLocation *antipodeLocation = [RGMapStateModel antipodeFromLocation:location];
-    [targetMapModel setLocation:antipodeLocation];
- 
-    [_targetMapViewController updateAnnotationLocation:antipodeLocation];
-    
-    //Reverse geocode the antipode
-//    [_targetMapViewController reverseGeoCodeLocation:antipodeLocation withCompletionBlock:^(NSString *string) {
-//        _targetLabel.text = [NSString stringWithFormat:@"End up at :\n%@", string];
-//    }];
-}
-
-- (void) locationController:(id) controller didFailWithError:(NSError*) error
-{
-    NSLog(@"%@", [error localizedDescription]);
 }
 
 - (void)didReceiveMemoryWarning
