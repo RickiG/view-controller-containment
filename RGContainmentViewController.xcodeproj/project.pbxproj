@@ -18,6 +18,7 @@
 		9D00C2E1174CE7E0000117B1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D00C2E0174CE7E0000117B1 /* Default-568h@2x.png */; };
 		9D00C2E4174CE7E0000117B1 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D00C2E2174CE7E0000117B1 /* MainStoryboard.storyboard */; };
 		9D00C2E7174CE7E0000117B1 /* RGContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D00C2E6174CE7E0000117B1 /* RGContainerViewController.m */; };
+		9D20C8F51758B86E005CBB3E /* RGGeoInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D20C8F41758B86E005CBB3E /* RGGeoInfoViewController.m */; };
 		9D294C0E175612000036002E /* RGAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D294C0D175612000036002E /* RGAnnotationView.m */; };
 		9D294C11175766240036002E /* CLLocation+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D294C10175766240036002E /* CLLocation+Utilities.m */; };
 		9DAB5C101753D3960017CFDB /* RGLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB5C0F1753D3960017CFDB /* RGLocationManager.m */; };
@@ -53,6 +54,8 @@
 		9D00C2E3174CE7E0000117B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		9D00C2E5174CE7E0000117B1 /* RGContainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RGContainerViewController.h; sourceTree = "<group>"; };
 		9D00C2E6174CE7E0000117B1 /* RGContainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RGContainerViewController.m; sourceTree = "<group>"; };
+		9D20C8F31758B86E005CBB3E /* RGGeoInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGGeoInfoViewController.h; sourceTree = "<group>"; };
+		9D20C8F41758B86E005CBB3E /* RGGeoInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGGeoInfoViewController.m; sourceTree = "<group>"; };
 		9D294C0C175612000036002E /* RGAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGAnnotationView.h; sourceTree = "<group>"; };
 		9D294C0D175612000036002E /* RGAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGAnnotationView.m; sourceTree = "<group>"; };
 		9D294C0F175766240036002E /* CLLocation+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+Utilities.h"; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 				9D00C2E6174CE7E0000117B1 /* RGContainerViewController.m */,
 				9DCC911B174E898E00C5962B /* RGMapViewController.h */,
 				9DCC911C174E898E00C5962B /* RGMapViewController.m */,
+				9D20C8F31758B86E005CBB3E /* RGGeoInfoViewController.h */,
+				9D20C8F41758B86E005CBB3E /* RGGeoInfoViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -325,6 +330,7 @@
 				9DAB5C28175412890017CFDB /* UIView+FLKAutoLayoutPredicate.m in Sources */,
 				9D294C0E175612000036002E /* RGAnnotationView.m in Sources */,
 				9D294C11175766240036002E /* CLLocation+Utilities.m in Sources */,
+				9D20C8F51758B86E005CBB3E /* RGGeoInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
