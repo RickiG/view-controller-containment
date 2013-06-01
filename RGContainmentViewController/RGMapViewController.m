@@ -99,8 +99,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     }
 }
 
-#pragma mark Antipode calculation
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

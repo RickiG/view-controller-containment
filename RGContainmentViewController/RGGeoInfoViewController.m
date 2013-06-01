@@ -12,7 +12,6 @@
 @interface RGGeoInfoViewController () {
     
     UILabel *infoLabel;
-    CLLocation *currentLocation;
 }
 
 @end
@@ -47,26 +46,25 @@
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    
 }
 
-- (void) updateLocation:(CLLocation*) location
+- (void) setLocation:(CLLocation *)location
 {
     if (location) {
         
-        if (!currentLocation || [location distanceFromLocation:currentLocation] > 100) {
-         
+        if (!_location || [location distanceFromLocation:_location] > 100) {
+            
+            _location = location;
             infoLabel.text = NSLocalizedString(@"Thinking...", @"");
-            [self reverseGeoCodeLocation:location];
+            [self reverseGeoCodeLocation:_location];
         }
     }
 }
 
 #pragma mark - Reverse geolocation
+
 - (void) reverseGeoCodeLocation:(CLLocation*) location
 {
-    currentLocation = location;
-    
     [[[CLGeocoder alloc] init] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         
         if (!error) {

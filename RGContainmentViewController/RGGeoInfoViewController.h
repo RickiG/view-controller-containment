@@ -11,6 +11,6 @@
 
 @interface RGGeoInfoViewController : UIViewController
 
-- (void) updateLocation:(CLLocation*) location;
+@property(nonatomic, strong) CLLocation *location;
 
 @end
