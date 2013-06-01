@@ -16,6 +16,5 @@
 @property(nonatomic, strong) CLLocation *currentLocation;
 
 - (void) updateAnnotationLocation:(CLLocation*) location;
-- (void) reverseGeoCodeLocation:(CLLocation*) location;
 
 @end

@@ -21,21 +21,19 @@
 
 @implementation RGMapViewController
 
+- (void) loadView
+{
+    mapView = [MKMapView new];
+    mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [mapView setDelegate:self];
+    [mapView setMapType:MKMapTypeHybrid];
+    
+    self.view = mapView;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.view setBackgroundColor:[UIColor greenColor]];
-    
-    mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
-    [mapView setDelegate:self];
-    [mapView setMapType:MKMapTypeHybrid];
-    [self.view addSubview:mapView];    
-    
-    [mapView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [mapView constrainWidthToView:self.view predicate:nil];
-    [mapView constrainHeightToView:self.view predicate:nil];
-    [mapView alignTopEdgeWithView:self.view predicate:nil];
     
     RGMapAnnotation *mapAnnotation = [RGMapAnnotation new];
     [mapView addAnnotation:mapAnnotation];
@@ -49,7 +47,6 @@
     [self snapToLocation:location];
     //Avoid self.currentLocation here as it will cause the KVO observer to repeatedly try and update
     _currentLocation = location;
-    [self reverseGeoCodeLocation:_currentLocation];
 }
 
 - (void) snapToLocation:(CLLocation*) location
@@ -99,32 +96,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         
         [self snapToLocation:newLocation];
         self.currentLocation = newLocation;
-        [self reverseGeoCodeLocation:self.currentLocation];   
     }
-}
-
-#pragma mark - Reverse geolocation
-- (void) reverseGeoCodeLocation:(CLLocation*) location
-{
-    [[[CLGeocoder alloc] init] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        
-        if (!error) {
-            
-            NSMutableString  *placeStr = [NSMutableString string];
-            
-            for (CLPlacemark *p in placemarks) {
-                
-                if (p.name != NULL)
-                    [placeStr appendFormat:@"%@ ", p.name];
-                if (p.locality != NULL)
-                    [placeStr appendFormat:@"%@ ", p.locality];
-                if (p.country != NULL)
-                    [placeStr appendFormat:@"%@ ", p.country];
-                
-                self.locationString = (NSString*)placeStr;
-            }
-        }
-    }];
 }
 
 #pragma mark Antipode calculation

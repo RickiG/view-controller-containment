@@ -7,12 +7,18 @@
 //
 
 #import "RGAppDelegate.h"
+#import "RGContainerViewController.h"
 
 @implementation RGAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	
+	RGContainerViewController *container = [RGContainerViewController new];
+ 	self.window.rootViewController = container;
+    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 							

@@ -22,10 +22,8 @@
     BOOL isDisplayingMapView;
     UIView *topContainer;
     UIView *bottomContainer;
+    UIButton *infoButton;
 }
-
-@property (weak, nonatomic) IBOutlet UILabel *targetLabel;
-@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
 @property RGMapViewController *startMapViewController;
 @property RGMapViewController *targetMapViewController;
@@ -33,73 +31,79 @@
 @property RGGeoInfoViewController *startGeoViewController;
 @property RGGeoInfoViewController *targetGeoViewController;
 
-@property (weak, nonatomic) IBOutlet UIButton *infoButton;
-
 @end
 
 @implementation RGContainerViewController
 
+- (void) loadView
+{
+    UIView *view = [UIView new];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	view.backgroundColor = [UIColor darkGrayColor];
+    
+    topContainer = [UIView new];
+    [topContainer setTranslatesAutoresizingMaskIntoConstraints:NO];    
+    [view addSubview:topContainer];
+    
+    [topContainer constrainWidthToView:view predicate:nil];
+    [topContainer constrainHeightToView:view predicate:@"*.4"];
+    [topContainer alignTopEdgeWithView:view predicate:nil];
+    [topContainer alignCenterXWithView:view predicate:nil];
+    
+    bottomContainer = [UIView new];
+    [bottomContainer setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [view addSubview:bottomContainer];
+    
+    [bottomContainer constrainWidthToView:view predicate:nil];
+    [bottomContainer constrainHeightToView:view predicate:@"*.4"];
+    [bottomContainer alignBottomEdgeWithView:view predicate:nil];
+    [bottomContainer alignCenterXWithView:view predicate:nil];    
+
+    infoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [infoButton setBackgroundImage:[UIImage imageNamed:@"radar"] forState:UIControlStateNormal];
+    [view addSubview:infoButton];
+    
+    [infoButton alignCenterXWithView:view predicate:nil];
+    [infoButton alignCenterYWithView:view predicate:nil];
+    
+    [infoButton addTarget:self action:@selector(infoButtonHandler:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.view = view;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    topContainer = [UIView new];
-    bottomContainer = [UIView new];
-    
-    //View specific setup for locationMapController
+
     _startMapViewController = [RGMapViewController new];
     [_startMapViewController setAnnotationImagePath:@"man"];
     [self addChildViewController:_startMapViewController];
-    [self.view addSubview:_startMapViewController.view];
-    
-    //Notify child controller that he has a parent
+    [topContainer addSubview:_startMapViewController.view];
     [_startMapViewController didMoveToParentViewController:self];
-
-    //Add view constraints
-    [_startMapViewController.view constrainWidthToView:self.view predicate:nil];
-    [_startMapViewController.view constrainHeightToView:self.view predicate:@"*.4"];
-    [_startMapViewController.view alignTopEdgeWithView:self.view predicate:nil];
-    
-    //Observe properties
     [_startMapViewController addObserver:self forKeyPath:@"currentLocation" options:NSKeyValueObservingOptionNew context:NULL];
-
+    
     _startGeoViewController = [RGGeoInfoViewController new];
-    //Add view constraints
-//    [self addChildViewController:_startGeoViewController];
-//    [self.view addSubview:_startGeoViewController.view];
-    
-    [_startGeoViewController.view constrainWidthToView:self.view predicate:nil];
-    [_startGeoViewController.view constrainHeightToView:self.view predicate:@"*.4"];
-    [_startGeoViewController.view alignTopEdgeWithView:self.view predicate:nil];
     
     
-    //View specific setup for targetMapController
     _targetMapViewController = [RGMapViewController new];
     [_targetMapViewController setAnnotationImagePath:@"hole"];
     [self addChildViewController:_targetMapViewController];
-    [self.view addSubview:_targetMapViewController.view];
-
-    //Notify child controller that he has a parent
+    [bottomContainer addSubview:_targetMapViewController.view];
     [_targetMapViewController didMoveToParentViewController:self];
-    
-    //Add view constraints    
-    [_targetMapViewController.view constrainWidthToView:self.view predicate:nil];
-    [_targetMapViewController.view constrainHeightToView:self.view predicate:@"*.4"];
-    [_targetMapViewController.view alignBottomEdgeWithView:self.view predicate:nil];
-
-    //Observe properties
     [_targetMapViewController addObserver:self forKeyPath:@"currentLocation" options:NSKeyValueObservingOptionNew context:NULL];
-    [_targetMapViewController addObserver:self forKeyPath:@"locationString" options:NSKeyValueObservingOptionNew context:NULL];
     
-    _startMapViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
-    _startMapViewController.view.layer.shadowRadius = 4.0f;
-    _startMapViewController.view.layer.shadowOpacity = 0.5f;
-    _startMapViewController.view.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
+    _targetGeoViewController = [RGGeoInfoViewController new];
     
-    _targetMapViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
-    _targetMapViewController.view.layer.shadowRadius = 4.0f;
-    _targetMapViewController.view.layer.shadowOpacity = 0.5f;
-    _targetMapViewController.view.layer.shadowOffset = CGSizeMake(0.0f, -2.0f);
+    
+    topContainer.layer.shadowColor = [UIColor blackColor].CGColor;
+    topContainer.layer.shadowRadius = 4.0f;
+    topContainer.layer.shadowOpacity = 0.5f;
+    topContainer.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
+    
+    bottomContainer.layer.shadowColor = [UIColor blackColor].CGColor;
+    bottomContainer.layer.shadowRadius = 4.0f;
+    bottomContainer.layer.shadowOpacity = 0.5f;
+    bottomContainer.layer.shadowOffset = CGSizeMake(0.0f, -2.0f);
     
     isDisplayingMapView = YES;
 }
@@ -115,39 +119,57 @@
 
 - (void) viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
 }
 
-- (IBAction)infoButtonDownHandler:(id)sender {
-    
-//    topMapYConstrain.constant = CGRectGetHeight(_startMapViewController.view.frame) - 20.0f;
-//    bottomMapYConstrain.constant = -CGRectGetHeight(_targetMapViewController.view.frame) + 60;
-//    [self updateViewLayout:YES];
-}
-
-- (IBAction)infoButtonUpHandler:(id)sender
+- (void)infoButtonHandler:(id)sender
 {
-    [self flipFromViewController:_startMapViewController toViewController:_startGeoViewController];
+    [infoButton setEnabled:NO];
+    
+    double delay = 0.2;
+    UIViewAnimationOptions direction = UIViewAnimationOptionTransitionFlipFromTop;
+    if (_startMapViewController.parentViewController == self) {
+        
+        [_startGeoViewController updateLocation:_startMapViewController.currentLocation];
+        [_targetGeoViewController updateLocation:_targetMapViewController.currentLocation];
+        
+        [self flipFromViewController:_startMapViewController toViewController:_startGeoViewController usingContainer:topContainer withDirection:direction andDelay:0.0];
+        [self flipFromViewController:_targetMapViewController toViewController:_targetGeoViewController usingContainer:bottomContainer withDirection:direction andDelay:delay];
+        
+    } else {
+        
+        direction = UIViewAnimationOptionTransitionFlipFromBottom;
+        
+        [self flipFromViewController:_startGeoViewController toViewController:_startMapViewController usingContainer:topContainer withDirection:direction andDelay:0.0];
+        
+        [self flipFromViewController:_targetGeoViewController toViewController:_targetMapViewController usingContainer:bottomContainer withDirection:direction andDelay:delay];
+    }
 }
 
-
-- (void) flipFromViewController:(UIViewController*) fromController toViewController:(UIViewController*) toController
+- (void) flipFromViewController:(UIViewController*) fromController toViewController:(UIViewController*) toController usingContainer:(UIView*) container withDirection:(UIViewAnimationOptions) direction andDelay:(double) delay
 {
-    [self addChildViewController:toController];
-    [fromController willMoveToParentViewController:nil];
-    [toController.view layoutIfNeeded];
-//    [toController.view setFrame:toController.view.frame];
-    
-    [self transitionFromViewController:_startMapViewController
-                      toViewController:_startGeoViewController
-                              duration:0.9
-                               options:UIViewAnimationOptionTransitionCurlDown
-                            animations:nil
-                            completion:^(BOOL finished) {
-                                                                
-                                [toController didMoveToParentViewController:self];
-                                [fromController.view removeFromSuperview];
-                                [fromController removeFromParentViewController];
-                            }];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        toController.view.frame = fromController.view.bounds;
+        [toController.view layoutIfNeeded];
+        
+        [self addChildViewController:toController];
+        [fromController willMoveToParentViewController:nil];
+        
+        [self transitionFromViewController:fromController
+                          toViewController:toController
+                                  duration:0.2
+                                   options:direction | UIViewAnimationOptionCurveEaseIn
+                                animations:nil
+                                completion:^(BOOL finished) {
+                                    
+                                    [toController didMoveToParentViewController:self];
+                                    [fromController removeFromParentViewController];
+                                    [infoButton setEnabled:YES];
+                                }];
+    });
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -162,18 +184,7 @@
             oppositeController = _startMapViewController;
         
         CLLocation *newLocation = [change objectForKey:@"new"];
-        [oppositeController updateAnnotationLocation:[newLocation antipode]];
-        
-    } else if ([keyPath isEqualToString:@"locationString"]) {
-        
-        UILabel *locationLabel = nil;
-        
-        if ([object isEqual:_startMapViewController])
-            locationLabel = self.locationLabel;
-        else
-            locationLabel = self.targetLabel;
-        
-        locationLabel.text = [change objectForKey:@"new"];
+        [oppositeController updateAnnotationLocation:[newLocation antipode]];   
     }
 }
 

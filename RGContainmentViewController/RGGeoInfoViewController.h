@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface RGGeoInfoViewController : UIViewController
+
+- (void) updateLocation:(CLLocation*) location;
 
 @end

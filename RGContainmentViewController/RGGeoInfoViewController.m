@@ -12,28 +12,80 @@
 @interface RGGeoInfoViewController () {
     
     UILabel *infoLabel;
+    CLLocation *currentLocation;
 }
 
 @end
 
 @implementation RGGeoInfoViewController
 
+- (void) loadView
+{
+    UIView *view = [UIView new];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+    
+    infoLabel = [UILabel new];
+    infoLabel.textAlignment = NSTextAlignmentCenter;
+    infoLabel.textColor = [UIColor whiteColor];
+    infoLabel.numberOfLines = 0;
+    infoLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+    infoLabel.shadowColor = [UIColor darkGrayColor];
+    infoLabel.shadowOffset = CGSizeMake(1.0f, 1.0f);
+    infoLabel.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+    infoLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [view addSubview:infoLabel];
+    
+    self.view = view;
+}
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    
-    infoLabel = [UILabel new];
-    infoLabel.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:infoLabel];
+}
 
-//    [self.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 500.0f)];
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
     
-    [infoLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [infoLabel constrainWidthToView:self.view predicate:nil];
-    [infoLabel constrainHeightToView:self.view predicate:nil];
-    [infoLabel alignTopEdgeWithView:self.view predicate:nil];
+}
+
+- (void) updateLocation:(CLLocation*) location
+{
+    if (location) {
+        
+        if (!currentLocation || [location distanceFromLocation:currentLocation] > 100) {
+         
+            infoLabel.text = NSLocalizedString(@"Thinking...", @"");
+            [self reverseGeoCodeLocation:location];
+        }
+    }
+}
+
+#pragma mark - Reverse geolocation
+- (void) reverseGeoCodeLocation:(CLLocation*) location
+{
+    currentLocation = location;
     
-    [self.view setBackgroundColor:[UIColor redColor]];
+    [[[CLGeocoder alloc] init] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        
+        if (!error) {
+            
+            NSMutableString  *placeStr = [NSMutableString string];
+            
+            for (CLPlacemark *p in placemarks) {
+                
+                if (p.name != NULL)
+                    [placeStr appendFormat:@"%@ ", p.name];
+                if (p.locality != NULL)
+                    [placeStr appendFormat:@"%@ ", p.locality];
+                if (p.country != NULL)
+                    [placeStr appendFormat:@"%@ ", p.country];
+                
+                infoLabel.text = (NSString*)placeStr;
+            }
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning
