@@ -142,20 +142,20 @@
         [_startGeoViewController setLocation:_startMapViewController.currentLocation];
         [_targetGeoViewController setLocation:_targetMapViewController.currentLocation];
         
-        [self flipFromViewController:_startMapViewController toViewController:_startGeoViewController usingContainer:topContainer withDirection:direction andDelay:0.0];
-        [self flipFromViewController:_targetMapViewController toViewController:_targetGeoViewController usingContainer:bottomContainer withDirection:direction andDelay:delay];
+        [self flipFromViewController:_startMapViewController toViewController:_startGeoViewController withDirection:direction andDelay:0.0];
+        [self flipFromViewController:_targetMapViewController toViewController:_targetGeoViewController withDirection:direction andDelay:delay];
         
     } else {
         
         direction = UIViewAnimationOptionTransitionFlipFromBottom;
         
-        [self flipFromViewController:_startGeoViewController toViewController:_startMapViewController usingContainer:topContainer withDirection:direction andDelay:0.0];
+        [self flipFromViewController:_startGeoViewController toViewController:_startMapViewController withDirection:direction andDelay:0.0];
         
-        [self flipFromViewController:_targetGeoViewController toViewController:_targetMapViewController usingContainer:bottomContainer withDirection:direction andDelay:delay];
+        [self flipFromViewController:_targetGeoViewController toViewController:_targetMapViewController withDirection:direction andDelay:delay];
     }
 }
 
-- (void) flipFromViewController:(UIViewController*) fromController toViewController:(UIViewController*) toController usingContainer:(UIView*) container withDirection:(UIViewAnimationOptions) direction andDelay:(double) delay
+- (void) flipFromViewController:(UIViewController*) fromController toViewController:(UIViewController*) toController  withDirection:(UIViewAnimationOptions) direction andDelay:(double) delay
 {
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 
@@ -179,7 +179,7 @@
     });
 }
 
-#pragma mark KVO oberserver
+#pragma mark KVO observer
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
